@@ -1,4 +1,4 @@
-public static Stock {
+public class Stock {
     private String name, symbol;
     private double currentValue, closeLastDay, openLastDay;
 
@@ -45,5 +45,6 @@ public static Stock {
     public String toString() {
 	String toReturn = "";
 	toReturn += name + " Current Price: " + currentValue;
+	return toReturn;
     }
 }
