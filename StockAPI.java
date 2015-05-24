@@ -4,40 +4,40 @@ import java.nio.channels.*;
 import java.util.*;
 
 public class StockAPI {
-    public static final String BASEQUOTEURL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
-    public static final String NAMEPROPERTY = "n";
-    public static final String SYMBOLPROPERTY = "s";
-    public static final String LATESTVALUEPROPERTY = "l1";
-    public static final String OPENLASTTRADINGDAYPROPERTY = "o";
-    public static final String CLOSELASTTRADINGDAYPROPERTY = "p";
-    public static final String USEPROPERTIES = "&f=";
-    public static final String ENDOFURLQUOTE = "&e=.csv";
+    public final String BASEQUOTEURL = "http://download.finance.yahoo.com/d/quotes.csv?s=";
+    public final String NAMEPROPERTY = "n";
+    public final String SYMBOLPROPERTY = "s";
+    public final String LATESTVALUEPROPERTY = "l1";
+    public final String OPENLASTTRADINGDAYPROPERTY = "o";
+    public final String CLOSELASTTRADINGDAYPROPERTY = "p";
+    public final String USEPROPERTIES = "&f=";
+    public final String ENDOFURLQUOTE = "&e=.csv";
 
-    private static final int BUFFER_SIZE = 4096;
+    private final int BUFFER_SIZE = 4096;
 
-    private static ArrayList<String> stocks = new ArrayList<String>();
- 
-    public static void main(String[] args) {
-	try {
-	    downloadFile(BASEQUOTEURL + "GOOG" + USEPROPERTIES + SYMBOLPROPERTY + NAMEPROPERTY + LATESTVALUEPROPERTY + ENDOFURLQUOTE, "output.csv");
-	}
-	catch (IOException e) {
-	    e.printStackTrace();
-	}
+    private ArrayList<String> stocks;
+    private StockUpdateThread updateThread;
+
+    public StockAPI() {
+	stocks = new ArrayList<String>();
+	updateThread = new StockUpdateThread(stocks);
+	updateThread.start();
     }
 
-    public static Stock getStock(String symbol) {
-	return null;	
+    public Stock getStock(String symbol) {
+	if (stocks.indexOf(symbol) == -1) {
+	    return null;
+	}
+	
     }
 
-    public static void addStockToFollow(String symbol) {
+    public void addStockToFollow(String symbol) {
 	stocks.add(symbol);
     }
 
-    public static void removeStockToFollow(String symbol) {
+    public void removeStockToFollow(String symbol) {
 	stocks.remove(stocks.indexOf(symbol));
     }
-
     
     /**
      * Downloads a file from a URL
@@ -47,7 +47,7 @@ public class StockAPI {
      *
      *  CODE NOT ORIGINAL -- CODE FROM http://www.codejava.net/java-se/networking/use-httpurlconnection-to-download-file-from-an-http-url
      */
-    public static void downloadFile(String fileURL, String saveDir)
+    public void downloadFile(String fileURL, String saveDir)
 	throws IOException {
         URL url = new URL(fileURL);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -93,15 +93,38 @@ public class StockAPI {
         }
         httpConn.disconnect();
     }
-
-    private StockUpdateThread extends Thread {
+   
+    private class StockUpdateThread extends Thread {
 	private ArrayList<String> stocks;
-	private StockUpdateThread(ArrayList<String> s) {
+	public StockUpdateThread(ArrayList<String> s) {
 	    stocks = s;
 	}
 	
-	private void run() {}
-	    
-	}
+	public void run() {
+	    while (1 == 1) {
+		String url = "";
+		if (stocks.size() != 0) {
+		    url += BASEQUOTEURL;
+		    for (int i = 0; i < stocks.size(); i++) {
+			url += stocks.get(i) + ",";
+		    }
+		    url = url.substring(0, url.length() - 1);
+		    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + ENDOFURLQUOTE;
+		    try {
+			downloadFile(url, "quotes.csv");
+		    }
+		    catch (IOException e) {
+			e.printStackTrace();
+		    }
+		}
+		try {
+		    sleep(10000);
+		}
+		catch (InterruptedException e) {
+		    
+		}
+
+	    }
+	}    
     }
 }
