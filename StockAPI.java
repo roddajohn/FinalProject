@@ -62,8 +62,6 @@ public class StockAPI {
 	    br = new BufferedReader(new FileReader("quotes.csv"));
 	    while ((line = br.readLine()) != null) {
 		String[] parsed = line.split(",");
-		parsed[1] = parsed[1].replace("\"", "");
-		parsed[0] = parsed[0].replace("\"", "");
 		if (parsed[1].equals(symbol)) {
 		    br.close();
 		    return parsed;
@@ -157,6 +155,7 @@ public class StockAPI {
 	try {
 	    PrintWriter writer = new PrintWriter("quotes.csv");
 	    writer.print(toWrite);
+	    writer.close();
 	}
 	catch (FileNotFoundException e) {
 	    e.printStackTrace();

@@ -22,6 +22,10 @@ public class Stock {
 	name = s;
     }
 
+    public void setSymbol(String s) {
+	symbol = s;
+    }
+
     public String getSymbol() {
 	return symbol;
     }
