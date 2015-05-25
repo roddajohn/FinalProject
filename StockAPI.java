@@ -25,18 +25,64 @@ public class StockAPI {
     }
 
     public Stock getStock(String symbol) {
+	boolean toRemove = false;
 	if (stocks.indexOf(symbol) == -1) {
+	    stocks.add(symbol);
+	    updateStocks();
+	    toRemove = true;
+	}
+	String[] row = getRow(symbol);
+	if (row == null) {
 	    return null;
 	}
-	
+	else {
+	    Stock toReturn = new Stock(symbol);
+	    toReturn.setCurrentValue(Double.parseDouble(row[2]));
+	    toReturn.setName(row[0]);
+	    if (toRemove) {
+		stocks.remove(symbol);
+	    }
+	    return toReturn;
+	}
     }
 
     public void addStockToFollow(String symbol) {
 	stocks.add(symbol);
+	updateStocks();
     }
 
     public void removeStockToFollow(String symbol) {
 	stocks.remove(stocks.indexOf(symbol));
+    }
+
+    public String[] getRow(String symbol) {
+	BufferedReader br = null;
+	String line = "";
+	try {
+	    br = new BufferedReader(new FileReader("quotes.csv"));
+	    while ((line = br.readLine()) != null) {
+		String[] parsed = line.split(",");
+		parsed[1] = parsed[1].replace("\"", "");
+		parsed[0] = parsed[0].replace("\"", "");
+		if (parsed[1].equals(symbol)) {
+		    br.close();
+		    return parsed;
+		}
+	    }
+	}
+	catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	try {
+	    br.close();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	return null;
     }
     
     /**
@@ -93,7 +139,49 @@ public class StockAPI {
         }
         httpConn.disconnect();
     }
-   
+
+    public void removeExtraneousQuotationMarks() {
+	BufferedReader br = null;
+	String line = "";
+	String toWrite = "";
+	try {
+	    br = new BufferedReader(new FileReader("quotes.csv"));
+	    while ((line = br.readLine()) != null) {
+	        toWrite += line + "\n";
+	    }	
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	toWrite = toWrite.replace("\"", "");
+	try {
+	    PrintWriter writer = new PrintWriter("quotes.csv");
+	    writer.print(toWrite);
+	}
+	catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    public void updateStocks() {
+	String url = "";
+	if (stocks.size() != 0) {
+	    url += BASEQUOTEURL;
+	    for (int i = 0; i < stocks.size(); i++) {
+		url += stocks.get(i) + ",";
+	    }
+	    url = url.substring(0, url.length() - 1);
+	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + ENDOFURLQUOTE;
+	    try {
+		downloadFile(url, "quotes.csv");
+	    }
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+	    removeExtraneousQuotationMarks();
+	} 
+    }
+    
     private class StockUpdateThread extends Thread {
 	private ArrayList<String> stocks;
 	public StockUpdateThread(ArrayList<String> s) {
@@ -102,28 +190,13 @@ public class StockAPI {
 	
 	public void run() {
 	    while (1 == 1) {
-		String url = "";
-		if (stocks.size() != 0) {
-		    url += BASEQUOTEURL;
-		    for (int i = 0; i < stocks.size(); i++) {
-			url += stocks.get(i) + ",";
-		    }
-		    url = url.substring(0, url.length() - 1);
-		    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + ENDOFURLQUOTE;
-		    try {
-			downloadFile(url, "quotes.csv");
-		    }
-		    catch (IOException e) {
-			e.printStackTrace();
-		    }
-		}
+		updateStocks();
 		try {
 		    sleep(10000);
 		}
 		catch (InterruptedException e) {
 		    
 		}
-
 	    }
 	}    
     }
