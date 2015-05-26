@@ -40,6 +40,15 @@ public class StockAPI {
 	return toReturn;
     }
 
+    public boolean hasStock(String symbol) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(symbol)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
     public void addStockToFollow(String symbol) {
 	stocks.add(new Stock(symbol));
 	updateStocks();
