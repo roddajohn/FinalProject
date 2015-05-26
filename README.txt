@@ -20,6 +20,6 @@ StockAPI Class:
 	public StockAPI() -- default constructor
 	public Stock getStock(String s) -- This will return a Stock object with a current value (+- 10 seconds).  If you are not following that stock, it will retrieve the value but will NOT add 
 	 	it to the list of following stocks -- note this forces a refresh.
-	public void addStockToFollow(String s) -- This adds a stock to the list of stocks to follow
-	public void removeStockToFollow(String s) -- This removes a stock from the list of stocks to follow
-	public boolean hasStock(String s) -- This returns true iff the API is following a stock with a given symbol and false if it is not being followed.
+	public void addStockToFollow(String symbol) -- This adds a stock to the list of stocks to follow
+	public void removeStockToFollow(String symbol) -- This removes a stock from the list of stocks to follow
+	public boolean hasStock(String symbol) -- This returns true iff the API is following a stock with a given symbol and false if it is not being followed.
