@@ -5,5 +5,7 @@ public class Driver {
 	a.addStockToFollow("AAPL");
 	System.out.println(a.getStock("GOOG"));
 	System.out.println(a.getStock("AAPL"));
-    }
+	a.removeStockToFollow("GOOG");
+	System.out.println(a.getStock("GOOG"));
+   }
 }
