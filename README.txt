@@ -23,3 +23,5 @@ StockAPI Class:
 	public void addStockToFollow() -- This adds a stock to the list of stocks to follow
 	public void removeStockToFollow() -- This removes a stock from the list of stocks to follow
 	public boolean hasStock(String s) -- This returns true iff the API is following a stock with a given symbol and false if it is not being followed.
+
+YAY
