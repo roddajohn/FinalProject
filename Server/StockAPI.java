@@ -40,6 +40,15 @@ public class StockAPI {
 	return toReturn;
     }
 
+    public boolean hasStock(String symbol) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(symbol)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
     public void addStockToFollow(String symbol) {
 	stocks.add(new Stock(symbol));
 	updateStocks();
@@ -61,7 +70,7 @@ public class StockAPI {
      *
      *  CODE NOT ORIGINAL -- CODE FROM http://www.codejava.net/java-se/networking/use-httpurlconnection-to-download-file-from-an-http-url
      */
-    public void downloadFile(String fileURL, String saveDir)
+    private void downloadFile(String fileURL, String saveDir)
 	throws IOException {
         URL url = new URL(fileURL);
         HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -108,7 +117,7 @@ public class StockAPI {
         httpConn.disconnect();
     }
 
-    public void removeExtraneousQuotationMarks() {
+    private void removeExtraneousQuotationMarks() {
 	BufferedReader br = null;
 	String line = "";
 	String toWrite = "";
@@ -132,7 +141,7 @@ public class StockAPI {
 	}
     }
 
-    public void updateStocks() {
+    private void updateStocks() {
 	String url = "";
 	if (stocks.size() != 0) {
 	    url += BASEQUOTEURL;
