@@ -1,10 +1,12 @@
+Before Wednesday May 27th
 
+Rodda: I created the basic Stock API which uses the Yahoo finance API to get the stocks as well as setup a basic Stock class and started to implement related get methods.
 
 Wednesday May 27th
 
 Benjamin: I added more metrics to the Stock class, created this file, started the algorithmic trading portion, and updated the metrics in the README.
 
-Rodda:
+Rodda: Created the server-side controller and the player class which will handle all buying and selling of stock.  I haven't started network code yet, but will soon, probably tomorrow.
 
 Thursday May 28th
 
