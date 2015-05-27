@@ -5,7 +5,6 @@ public class Player {
     private ArrayList<Integer> stockAmts;
     private double money;
     private String username;
-    private PlayerCommunication p;
     private int id;
 
     public Player(String u, int i) {
@@ -17,6 +16,31 @@ public class Player {
 	p = new PlayerCommunication();
     }
 
+    public double getMoney() {
+	return money;
+    }
+
+    public String getUsername() {
+	return username;
+    }
+
+    public int getID() {
+	return id;
+    }
+
+    public ArrayList<Stock> getPortfolio() {
+	return stockNames;
+    }
+
+    public ArrayList<Integer> stockAmts() {
+	return stockAmts;
+    }
+
+    public void addMoney(double d) {
+	money += d;
+    }
+    
+    // Maybe I should put all of the buying and selling code in here, which would make everything much cleaner and more effective.
     public void buyStock(String s, int amt) {
 	
     }
