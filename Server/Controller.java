@@ -30,12 +30,31 @@ public class Controller {
     private void shutDown() {
 	// This will shut down the server
     }
+    
+    private Player createUser(String username, String password) {
+	// This will create a new user
+    }
 
     private class ClientHandlingThread extends Thread {
+	private Player player;
+	public ClientHandlinThread(Player p, Socket s) {
+	    player = p;
+	}
+
+	public void run() {
+
+	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
     }
 
     private class CommandLine extends Thread {
+	public CommandLine() {
+
+	}
+
+	public void run() {
+
+	}
 	// This takes input from the server command line to run commands, currently, only the shutDown() function
     }
 }
