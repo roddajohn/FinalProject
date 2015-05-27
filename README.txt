@@ -8,7 +8,13 @@ Stock Class:
 	public void setName(String n) -- sets the name of the stock, exp. "Google Inc."
 	public void setSymbol(String s) -- sets the symbol of the stock, WARNING: Do not change, it will probably mess up updating thread things
     public void setBid(double d) -- sets the bid for the stock
-    public void set1YrTargetEstimate
+    public void set1YrTargetEstimate(double d) -- sets the 1YR target estimate for the stock
+    public void setBeta(double d) -- sets the beta value for the pack
+    public void setDaysRange(double d) -- sets the Day`s range
+    public void set52WeekVolume(double d) -- sets the 52 Week Volume
+    public void setVolume(double d) -- sets the volume
+    public void setAvgVolume(double d) -- 
+    
 	
 	public String getSymbol() -- returns the symbol of the stock
 	public double getCurrentValue() -- returns the currentValue of the stock
