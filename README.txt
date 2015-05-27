@@ -13,7 +13,15 @@ Stock Class:
     public void setDaysRange(double d) -- sets the Day`s range
     public void set52WeekVolume(double d) -- sets the 52 Week Volume
     public void setVolume(double d) -- sets the volume
-    public void setAvgVolume(double d) -- 
+    public void setAvgVolume(double d) -- sets the Average Volum over 3 months
+    public void setMarketCapitalization(double d) -- sets the market capitalization
+    public void setEPS(double d) -- sets the Earnings per Share
+    public void setDividendsandYield(double d) -- sets the Dividends and yield
+    public void setPricetoSalesRatio(double d) -- sets the Price to Sales Ratio
+    public void setForwardPricetoEarnings -- sets the Forward Price to Earnings
+    public void setCompetitors(String a, String b, String c, String d) -- sets the firms top four competitors
+    public void setEarningsDate(String date) -- sets the earnings date
+    public void setExDividendDate(String date) -- sets the ex -dividend date
     
 	
 	public String getSymbol() -- returns the symbol of the stock
