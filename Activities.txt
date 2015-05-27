@@ -1,0 +1,25 @@
+
+
+Wednesday May 27th
+
+Benjamin: I added more metrics to the Stock class, created this file, started the algorithmic trading portion, and updated the metrics in the README.
+
+Rodda:
+
+Thursday May 28th
+
+Benjamin:
+
+Rodda:
+
+Friday May 29th
+
+Benjamin:
+
+Rodda:
+
+Monday June 2nd
+
+Benjamin:
+
+Rodda:
