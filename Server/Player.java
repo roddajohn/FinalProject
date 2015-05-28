@@ -11,7 +11,6 @@ public class Player {
 	stocks = new ArrayList<String>();
 	amounts = new ArrayList<Integer>();
 	money = 100000.0;
-	p = new PlayerCommunication();
     }
 
     public double getMoney() {
