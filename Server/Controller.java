@@ -35,7 +35,7 @@ public class Controller {
 	// This will create a new user
     }
 
-    private class ClientHandlingThread extends Thread {
+    private class ClientHandlingThread extends Thread { 
 	private Player player;
 	public ClientHandlinThread(Player p, Socket s) {
 	    player = p;
