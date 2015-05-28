@@ -24,6 +24,20 @@ public class StockAPI {
 	updateThread.start();
     }
 
+    public String toString() {
+	String toReturn = "";
+	for (int i = 0; i < stocks.size(); i++) {
+	    toReturn += stocks.get(i).getSymbol();
+	}
+	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	return toReturn;
+    }
+
+    public void importStock(ArrayList<Stock> s) {
+	stocks = s;
+	updateStock();
+    }
+
     public Stock getStock(String symbol) {
 	Stock toReturn = null;
 	for (int i = 0; i < stocks.size(); i++) {

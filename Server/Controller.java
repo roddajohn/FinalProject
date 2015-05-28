@@ -8,11 +8,42 @@ public class Controller {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
 	loadPlayersFromFile();
+	loadAPIFromFile();
 	startServer();
     }
 
     private  void loadPlayersFromFile() {
-	// To be implemented, this will, when the Controller is created, load all of the players from the file storing all of the players.
+	BufferedReader in = new BufferedReader(new FileReader("players.csv"));
+	String line = "";
+	while ((line = in.readLine()) != null) {
+	    String[] input = line.split(",");
+	    String[] stocks = input[3].split(";");
+	    String[] amts = input[4].split(";");
+	    ArrayList<Stock> s = new ArrayList<Stock>();
+	    for (int i = 0; i < stocks.length; i++) {
+		s.add(new Stock(stocks[i]));
+	    }
+	    ArrayList<Integer> j = new ArrayList<Integer>();
+	    for (int i = 0; i < amts.length; i++) {
+		j.add(Integer.parseInt(amts[i]));
+	    }
+	    players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j));
+	}
+	in.close();
+    }
+
+    private void loadAPIFromFile() {
+	BufferedReader in = new BufferedReader(new FileReader("api.csv"));
+	String line = "";
+	while ((line = in.readLine()) != null) {
+	    String[] input = line.split(",");
+	    ArrayList<String> s = new ArrayList<String>();
+	    for (int i = 0; i < input.length; i++) {
+		s.add(input[i]);
+	    }
+	    api.importStock(s);
+	}
+	in.close();	
     }
     
     private void startServer() {
@@ -27,19 +58,32 @@ public class Controller {
 	    p.addStock(api.getStock(symbol));
 	}
 	return p.buyStock(symbol, amt);
-	// For buying stock, this takes the player that needs to buy the stock, the symbol of the stock to buy, and the amount of stocks to buy
-	// This will return true if the buy was successful and false if it wasn't
-	
     }
 
     private double sellStock(Player p, String symbol, int amt) {
 	return p.sellStock(symbol, amt);
-	
-	// Selling, returns the amount of money added to the account
     }
 
     private void shutDown() {
+	savePlayersToFile();
+	saveStockAPIToFile();
 	// This will shut down the server -- please also save all of the players states so that nothing breaks !  And/Or so that data isn't lost
+    }
+
+    private void savePlayersToFile() {
+	PrintWriter writer = new PrintWriter("players.csv", "UTF-8");
+	for (Player p : players) {
+	    writer.println(p.toString());
+	}
+	writer.close();
+	// Outputs the players to a file, to be loaded later
+    }
+
+    private void saveStockAPIToFile() {
+	PrintWriter writer = new PrintWriter("api.csv", "UTF-8");
+	writer.println(api.toString());
+	writer.close();
+	// Outputs the stockAPI to a file
     }
     
     private Player createUser(String username, String password) {
