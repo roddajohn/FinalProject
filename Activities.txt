@@ -12,7 +12,7 @@ Thursday May 28th
 
 Benjamin: Worked on algorithmic trading and updated the metrics in the README
 
-Rodda: Continued work on Players, working on saving a writing.
+Rodda: Continued work on Players, working on saving and writing.
 
 Friday May 29th
 
