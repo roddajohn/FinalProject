@@ -43,13 +43,13 @@ public class Stock {
     }
     
     public void setBid(double d){
-    Bid = d;      
+	Bid = d;      
     }
     
     public void set1YrTargetEstimate(double d){
 	TargetEstimate = d;        
     }
-    }
+    
 
     public void setSymbol(String s) {
 	symbol = s;
@@ -68,8 +68,9 @@ public class Stock {
     public void set1YrTargetEstimate(double d){
 	TargetEstimate = d;        
     }
-        public void setDaysRange(double d) {
-    DaysRange = d;
+    
+    public void setDaysRange(double d) {
+	DaysRange = d;
         
     }
     

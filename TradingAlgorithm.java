@@ -1,6 +1,6 @@
- public class TradingAlgorithm{
-  private Stock stock1;
+public class TradingAlgorithm { 
+     private Stock stock1;
  
  
  
- }
+}
