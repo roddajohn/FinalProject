@@ -5,12 +5,39 @@ public class Player {
     private ArrayList<Integer> amounts;
     private double money;
     private String username;
+    private String password;
 
-    public Player(String u, int i) {
+    public Player(String u, String p, int i) {
 	username = u;
+	password = p;
 	stocks = new ArrayList<String>();
 	amounts = new ArrayList<Integer>();
 	money = 100000.0;
+	// For creating a new user
+    }
+
+    public Player(String u, String p, double m, ArrayList<Stock> stcks, ArrayList<Integer> amts) {
+	username = u;
+	password = p;
+	money = m;
+	stocks = stcks;
+	amounts = amts;
+	// For loading a user from file
+    }
+
+    public String toString() {
+	String toReturn = "";
+	toReturn += username + "," + password + "," + money + ",";
+	for (int i = 0; i < stocks.size(); i++) {
+	    toReturn += stocks.get(i).toString() + ";";
+	}
+	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	toReturn += ",";
+	for (int i = 0; i < amounts.size(); i++) {
+	    toReturn += amoutns.get(i) + ";";
+	}
+	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	return toReturn;
     }
 
     public double getMoney() {
@@ -23,6 +50,10 @@ public class Player {
 
     public int getID() {
 	return id;
+    }
+
+    public getPassword() {
+
     }
 
     public void addMoney(double d) {
