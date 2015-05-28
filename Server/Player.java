@@ -1,13 +1,15 @@
 import java.util.*;
 
 public class Player {
-    private ArrayList<StockItem> stocks;
+    private ArrayList<Stock> stocks;
+    private ArrayList<Integer> amounts;
     private double money;
     private String username;
 
     public Player(String u, int i) {
 	username = u;
 	stocks = new ArrayList<String>();
+	amounts = new ArrayList<Integer>();
 	money = 100000.0;
 	p = new PlayerCommunication();
     }
@@ -24,22 +26,17 @@ public class Player {
 	return id;
     }
 
-    public ArrayList<Stock> getPortfolio() {
-	return stocks;
-    }
-
     public void addMoney(double d) {
 	money += d;
     }
 
-    public Stock addStock(String s) {
-	StockItem s = new StockItem(s, 0);
+    public void addStock(Stock s) {
 	stocks.add(s);
-	return s;
+	amounts.add(0);
     }
 
     public boolean hasStock(String s) {
-	for (StockItem i : stocks) {
+	for (Stock i : stocks) {
 	    if (i.getSymbol().equals(s)) {
 		return true;
 	    }
@@ -48,17 +45,34 @@ public class Player {
     }
 
     public boolean buyStock(String s, int amt) { // The stock needs to already be in the stocks list
-	for (StockItem s : stocks) {
-	    if (s.getSymbol().equals(s)) {
-		if (s.getCurrentPrice() * amt > money) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(s)) {
+		if (stocks.get(i).getCurrentPrice() * amt > money) {
 		    return false;
 		}
 		else {
-		    money -= s.getCurrentPrice() * amt;
-		    s.addAmount(amt);
-		    return false;
+		    amounts.set(i, amounts.get(i) + stocks.get(i).getCurrentPrice() * amt);
+		    money -= stocks.get(i).getCurrentPrice() * amt;
+		    return true;
 		}
 	    }
 	}
+	return false;
+    }
+
+    public boolean sellStock(String s, int amt) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(s)) {
+		if (amounts.get(i) < amt) {
+		    return false;
+		}
+		else {
+		    amounts.set(i, amounts.get(i) - amt);
+		    money += stocks.get(i).getCurrentPrice() + amt;
+		    return true;
+		}
+	    }
+	}
+	return false;
     }
 }

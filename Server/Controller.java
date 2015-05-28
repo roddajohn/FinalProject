@@ -2,8 +2,10 @@ import java.util.*;
 
 public class Controller {
     private ArrayList<Player> players;
+    private StockAPI api;
 
     public Controller() {
+	api = new StockAPI();
 	players = new ArrayList<Player>();
 	loadPlayersFromFile();
 	startServer();
@@ -18,12 +20,21 @@ public class Controller {
     }
 
     private boolean buyStock(Player p, String symbol, int amt) {
+	if (!api.hasStock(symbol)) {
+	    api.addStockToFollow(symbol);
+	}
+	if (!p.hasStock(symbol)) {
+	    p.addStock(api.getStock(symbol));
+	}
+	return p.buyStock(symbol, amt);
 	// For buying stock, this takes the player that needs to buy the stock, the symbol of the stock to buy, and the amount of stocks to buy
 	// This will return true if the buy was successful and false if it wasn't
 	
     }
 
     private double sellStock(Player p, String symbol, int amt) {
+	return p.sellStock(symbol, amt);
+	
 	// Selling, returns the amount of money added to the account
     }
 

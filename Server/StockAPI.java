@@ -54,6 +54,10 @@ public class StockAPI {
 	updateStocks();
     }
 
+    public ArrayList<Stock> getStocks() {
+	return stocks;
+    }
+
     public void removeStockToFollow(String symbol) {
 	for (int i = 0; i < stocks.size(); i++) {
 	    if (stocks.get(i).getSymbol().equals(symbol)) {
