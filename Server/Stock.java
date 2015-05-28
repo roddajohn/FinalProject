@@ -1,7 +1,16 @@
 public class Stock {
     private String name, symbol, Comp1, Comp2, Comp3, Comp4, ED, EDD;
     private double currentValue, closeLastDay, openLastDay, BID, TargetEstimate, Beta, DaysRange, 52WeekVolume, Volume, AvgVolume, MarketCapitalization, EPS, DividendsandYield, P2SR,  FP2E, AEPS, QEPS, MeanReccomendations, PEGRatio;
-
+    private double ExpectedTotalDifference;
+    
+    public void setExpectedTotalDifference(double d){
+        ExectedTotalDifference = d;
+        
+    }
+    public double getExpectedTotalDifference(){
+        return ExpectedTotalDifference;
+        
+    }
     public Stock(String s) {
 	symbol = s;
     }
