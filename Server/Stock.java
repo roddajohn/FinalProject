@@ -1,6 +1,6 @@
 public class Stock {
     private String name, symbol, Comp1, Comp2, Comp3, Comp4, ED, EDD;
-    private double currentValue, closeLastDay, openLastDay, BID, TargetEstimate, Beta, DaysRange, WeekVolume52, Volume, AvgVolume, MarketCapitalization, EPS, DividendsandYield, P2SR,  FP2E, AEPS, QEPS, MeanReccomendations, PEGRatio;
+    private double currentValue, closeLastDay, openLastDay, BID, TargetEstimate, Beta, DaysRange, WeekVolume52, Volume, AvgVolume, MarketCapitalization, EPS, DividendsandYield, P2SR,  FP2E, AEPS, QEPS, MeanRecomendations, PEGRatio;
     private double ExpectedTotalDifference;
     
     public void setExpectedTotalDifference(double d){
@@ -106,8 +106,8 @@ public class Stock {
 	QEPS = d;
     }
     
-    public void setMeanReccomendation(double d) {
-	MeanRecomendation = d;
+    public void setMeanRecomendations(double d) {
+	MeanRecomendations = d;
     }
     
     public void setPEGRatio(double d) {
@@ -198,11 +198,11 @@ public class Stock {
     }
     
     public double getQuarterlyEarningsPerShareEstimated() {
-	return QUEPS;
+	return QEPS;
     }
     
-    public double getMeanReccomendation() {
-	return MeanReccomendation;
+    public double getMeanRecomendation() {
+	return MeanRecomendations;
     }
     
     public double getPEGRatio() {
