@@ -39,7 +39,7 @@ public class Controller {
     }
 
     private void shutDown() {
-	// This will shut down the server
+	// This will shut down the server -- please also save all of the players states so that nothing breaks !  And/Or so that data isn't lost
     }
     
     private Player createUser(String username, String password) {
