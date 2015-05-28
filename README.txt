@@ -22,46 +22,39 @@ Stock Class:
     public void setCompetitors(String a, String b, String c, String d) -- sets the firms top four competitors
     public void setEarningsDate(String date) -- sets the earnings date
     public void setExDividendDate(String date) -- sets the ex -dividend date
+    public void setAnnualEarningsperShare(double d) -- sets the Annual Earnings per Share
+    public void setQuarterlyEarningsPerShareEstimated(double d) -- sets the estimated, quarterly earnings per share
+    public void setMeanReccomendation(double d) -- sets the mean recomendation
+    public void setPEGRatio(double d) -sets the PEG ratio
     
 	
 	public String getSymbol() -- returns the symbol of the stock
 	public double getCurrentValue() -- returns the currentValue of the stock
 	public double getCloseLastDay() -- returns the value of the stock at the close of the last trading day
 	public double getOpenLastDay() -- returns the value of the stock at the opening of the last trading day
-    public void getBid() -- sets the bid for the stock
+	public double getBid() -- gets the bid for the stock
+    public double get1YrTargetEstimate() -- gets the 1YR target estimate for the stock
+    public double getBeta() -- gets the beta value for the pack
+    public double getDaysRange() -- gets the Day`s range
+    public double get52WeekVolume() -- gets the 52 Week Volume
+    public double getVolume() -- gets the volume
+    public double getAvgVolume() -- gets the Average Volum over 3 months
+    public double getMarketCapitalization() -- gets the market capitalization
+    public double getEPS() -- gets the Earnings per Share
+    public double getDividendsandYield() -- gets the Dividends and yield
+    public double getPricetoSalesRatio() -- gets the Price to Sales Ratio
+    public double getForwardPricetoEarnings() -- gets the Forward Price to Earnings
+    public String getCompetitors() -- gets the firms top four competitors
+    public String getEarningsDate() -- gets the earnings date
+    public String getExDividendDate() -- gets the ex -dividend date
+    public double getAnnualEarningsperShare() -- gets the Annual Earnings per Share
+    public double getQuarterlyEarningsPerShareEstimated() -- gets the estimated, quarterly earnings per share
+    public double getMeanReccomendation() -- gets the mean recomendation
+    public double getPEGRatio() -gets the PEG ratio
 	       
 	public String toString() -- Prints out a stock's name followed by its current price, ie: "Google Inc. Current Price: -1.1"
     
     
-    Metrics
-
-Bid
-Ask
-1 year Target Estimate
-Beta
-Day's Range
-52 Week Range
-Volume
-Avg Volume (3 Months)
-Market Capitalization:
-Price to Earnings Ratio:
-Earnings Per Share:
-Dividends and Yield:
-Price to Sales Ratio
-Forward Price to Earnings (1 Year):
-
-
-
-Comparison of Competitors
-Get top 4 competitors names and links
-
-
-Non-Variable Info
-Earnings Date
-Ex- Dividend Date:
-
-Analysts: 
-Annual Earnings per Share
 
 	
 StockAPI Class:
