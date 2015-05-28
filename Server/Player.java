@@ -2,16 +2,12 @@ import java.util.*;
 
 public class Player {
     private ArrayList<StockItem> stocks;
-    private ArrayList<Integer> stockAmts;
     private double money;
     private String username;
-    private int id;
 
     public Player(String u, int i) {
 	username = u;
-	id = i;
 	stocks = new ArrayList<String>();
-	stockAmts = new ArrayList<Integer>();
 	money = 100000.0;
 	p = new PlayerCommunication();
     }
@@ -29,20 +25,26 @@ public class Player {
     }
 
     public ArrayList<Stock> getPortfolio() {
-	return stockNames;
-    }
-
-    public ArrayList<Integer> stockAmts() {
-	return stockAmts;
+	return stocks;
     }
 
     public void addMoney(double d) {
 	money += d;
     }
 
-    public void addStock(String s) {
+    public Stock addStock(String s) {
 	StockItem s = new StockItem(s, 0);
 	stocks.add(s);
+	return s;
+    }
+
+    public boolean hasStock(String s) {
+	for (StockItem i : stocks) {
+	    if (i.getSymbol().equals(s)) {
+		return true;
+	    }
+	}
+	return false;
     }
 
     public boolean buyStock(String s, int amt) { // The stock needs to already be in the stocks list
