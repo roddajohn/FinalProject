@@ -52,8 +52,8 @@ public class Player {
 	return id;
     }
 
-    public getPassword() {
-
+    public String getPassword() {
+	return password;
     }
 
     public void addMoney(double d) {

@@ -92,7 +92,7 @@ public class Controller {
 
     private class ClientHandlingThread extends Thread { 
 	private Player player;
-	public ClientHandlinThread(Player p, Socket s) {
+	public ClientHandlingThread(Player p, Socket s) {
 	    player = p;
 	}
 
