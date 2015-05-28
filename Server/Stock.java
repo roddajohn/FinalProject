@@ -269,7 +269,7 @@ public double getPEGRatio() {
 
     public String toString() {
 	String toReturn = "";
-	toReturn += name + " Current Price: " + currentValue;
+	toReturn += symbol;
 	return toReturn;
     }
 }

@@ -10,9 +10,9 @@ Rodda: Created the server-side controller and the player class which will handle
 
 Thursday May 28th
 
-Benjamin:
+Benjamin: Worked on algorithmic trading and updated the metrics in the README
 
-Rodda:
+Rodda: Continued work on Players, working on saving a writing.
 
 Friday May 29th
 

@@ -1,15 +1,43 @@
 import java.util.*;
 
 public class Player {
-    private ArrayList<StockItem> stocks;
+    private ArrayList<Stock> stocks;
+    private ArrayList<Integer> amounts;
     private double money;
     private String username;
+    private String password;
 
-    public Player(String u, int i) {
+    public Player(String u, String p, int i) {
 	username = u;
+	password = p;
 	stocks = new ArrayList<String>();
+	amounts = new ArrayList<Integer>();
 	money = 100000.0;
-	p = new PlayerCommunication();
+	// For creating a new user
+    }
+
+    public Player(String u, String p, double m, ArrayList<Stock> stcks, ArrayList<Integer> amts) {
+	username = u;
+	password = p;
+	money = m;
+	stocks = stcks;
+	amounts = amts;
+	// For loading a user from file
+    }
+
+    public String toString() {
+	String toReturn = "";
+	toReturn += username + "," + password + "," + money + ",";
+	for (int i = 0; i < stocks.size(); i++) {
+	    toReturn += stocks.get(i).toString() + ";";
+	}
+	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	toReturn += ",";
+	for (int i = 0; i < amounts.size(); i++) {
+	    toReturn += amoutns.get(i) + ";";
+	}
+	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	return toReturn;
     }
 
     public double getMoney() {
@@ -24,22 +52,21 @@ public class Player {
 	return id;
     }
 
-    public ArrayList<Stock> getPortfolio() {
-	return stocks;
+    public getPassword() {
+
     }
 
     public void addMoney(double d) {
 	money += d;
     }
 
-    public Stock addStock(String s) {
-	StockItem s = new StockItem(s, 0);
+    public void addStock(Stock s) {
 	stocks.add(s);
-	return s;
+	amounts.add(0);
     }
 
     public boolean hasStock(String s) {
-	for (StockItem i : stocks) {
+	for (Stock i : stocks) {
 	    if (i.getSymbol().equals(s)) {
 		return true;
 	    }
@@ -48,17 +75,34 @@ public class Player {
     }
 
     public boolean buyStock(String s, int amt) { // The stock needs to already be in the stocks list
-	for (StockItem s : stocks) {
-	    if (s.getSymbol().equals(s)) {
-		if (s.getCurrentPrice() * amt > money) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(s)) {
+		if (stocks.get(i).getCurrentPrice() * amt > money) {
 		    return false;
 		}
 		else {
-		    money -= s.getCurrentPrice() * amt;
-		    s.addAmount(amt);
-		    return false;
+		    amounts.set(i, amounts.get(i) + stocks.get(i).getCurrentPrice() * amt);
+		    money -= stocks.get(i).getCurrentPrice() * amt;
+		    return true;
 		}
 	    }
 	}
+	return false;
+    }
+
+    public boolean sellStock(String s, int amt) {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (stocks.get(i).getSymbol().equals(s)) {
+		if (amounts.get(i) < amt) {
+		    return false;
+		}
+		else {
+		    amounts.set(i, amounts.get(i) - amt);
+		    money += stocks.get(i).getCurrentPrice() + amt;
+		    return true;
+		}
+	    }
+	}
+	return false;
     }
 }
