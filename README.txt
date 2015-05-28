@@ -55,35 +55,6 @@ Stock Class:
 	public String toString() -- Prints out a stock's name followed by its current price, ie: "Google Inc. Current Price: -1.1"
     
     
-    Metrics
-
-Bid
-Ask
-1 year Target Estimate
-Beta
-Day's Range
-52 Week Range
-Volume
-Avg Volume (3 Months)
-Market Capitalization:
-Price to Earnings Ratio:
-Earnings Per Share:
-Dividends and Yield:
-Price to Sales Ratio
-Forward Price to Earnings (1 Year):
-
-
-
-Comparison of Competitors
-Get top 4 competitors names and links
-
-
-Non-Variable Info
-Earnings Date
-Ex- Dividend Date:
-
-Analysts: 
-Annual Earnings per Share
 
 	
 StockAPI Class:
