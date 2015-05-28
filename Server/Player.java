@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Player {
-    private ArrayList<Stock> stockNames;
+    private ArrayList<StockItem> stocks;
     private ArrayList<Integer> stockAmts;
     private double money;
     private String username;
@@ -39,10 +39,24 @@ public class Player {
     public void addMoney(double d) {
 	money += d;
     }
-    
-    // Maybe I should put all of the buying and selling code in here, which would make everything much cleaner and more effective.
-    public void buyStock(String s, int amt) {
-	
+
+    public void addStock(String s) {
+	StockItem s = new StockItem(s, 0);
+	stocks.add(s);
     }
 
+    public boolean buyStock(String s, int amt) { // The stock needs to already be in the stocks list
+	for (StockItem s : stocks) {
+	    if (s.getSymbol().equals(s)) {
+		if (s.getCurrentPrice() * amt > money) {
+		    return false;
+		}
+		else {
+		    money -= s.getCurrentPrice() * amt;
+		    s.addAmount(amt);
+		    return false;
+		}
+	    }
+	}
+    }
 }
