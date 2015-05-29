@@ -18,7 +18,7 @@ Friday May 29th
 
 Benjamin:
 
-Rodda:
+Rodda:  Implemented the start of the networking.
 
 Monday June 2nd
 
