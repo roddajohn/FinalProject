@@ -5,10 +5,12 @@ import java.io.*;
 public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
+    private ArrayList<ClientHandlingThread> threads;
 
     public Controller() {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
+	threads = new ArrayList<ClientHandlingThread>();
 	loadPlayersFromFile();
 	loadAPIFromFile();
 	startServer();
@@ -85,34 +87,6 @@ public class Controller {
 	while (1 == 1) {
 	    try {
 		client = socket.accept();
-		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-		PrintWriter out = new PrintWriter(client.getOutputStream(), true);
-
-		String inputLine = "";
-		while((inputLine = in.readLine()) != null) {
-		    String[] input = inputLine.split(":");
-		    if (input[0].equals("newUser")) {
-			Player p = createUser(input[1], input[2]);
-			ClientHandlingThread c = new ClientHandlingThread(p, client);
-			c.start();
-			threads.add(c);
-			break;
-		    }
-		    else if (input[0].equals("login")) {
-			for (Player p : players) {
-			    if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
-				ClientHandlingThread c = new ClientHandlingThread(p, client);
-				c.start();
-				threads.add(c);
-				break;
-			    }
-			}
-			out.println("tryAgain");
-		    }
-		    else {
-			out.println("error");
-		    }
-		}
 	    }
 	    catch (IOException e) {
 		e.printStackTrace();
@@ -178,16 +152,65 @@ public class Controller {
 	return p;
     }
 
+    private void quitThread(ClientHandlingThread c) {
+	threads.remove(c);
+    }
+
     private class ClientHandlingThread extends Thread { 
 	private Player player;
 	private Socket socket;
-	public ClientHandlingThread(Player p, Socket s) {
-	    player = p;
+	public ClientHandlingThread(Socket s) {
 	    socket = s;
 	}
 
 	public void run() {
-
+	    BufferedReader in = null;
+	    PrintWriter out = null;
+	    try {
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new PrintWriter(socket.getOutputStream(), true);
+	    
+	    }
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+	    String inputLine = "";
+	    try {
+		while((inputLine = in.readLine()) != null) {
+		    String[] input = inputLine.split(":");
+		    if (input[0].equals("logout")) {
+			break;
+		    }
+		    if (input[0].equals("newUser")) {
+			player = createUser(input[1], input[2]);
+			break;
+		    }
+		    else if (input[0].equals("login")) {
+			for (Player p : players) {
+			    if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
+				player = p;
+				break;
+			    }
+			}
+			out.println("tryAgain");
+		    }
+		    else {
+			out.println("error");
+		    }
+		}
+	    }
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+		
+	    try {
+		socket.close();
+		out.close();
+		in.close();
+	    }
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
 	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
     }
