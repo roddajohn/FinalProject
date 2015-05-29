@@ -25,6 +25,14 @@ public class Player {
 	// For loading a user from file
     }
 
+    public ArrayList<Stock> getStocks() {
+	return stocks;
+    }
+
+    public ArrayList<Integer> getAmounts() {
+	return amounts;
+    }
+
     public String toString() {
 	String toReturn = "";
 	toReturn += username + "," + password + "," + money + ",";

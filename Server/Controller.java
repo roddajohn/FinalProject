@@ -6,6 +6,7 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
+    private final int port = 55559;
 
     public Controller() {
 	api = new StockAPI();
@@ -74,10 +75,8 @@ public class Controller {
     
     private void startServer() {
 	ServerSocket socket = null;
-	ArrayList<ClientHandlingThread> threads = new ArrayList<ClientHandlingThread>();
-	
 	try {
-	    socket = new ServerSocket(23456);
+	    socket = new ServerSocket(port);
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -87,6 +86,10 @@ public class Controller {
 	while (1 == 1) {
 	    try {
 		client = socket.accept();
+		ClientHandlingThread c = new ClientHandlingThread(client);
+		c.start(); 
+		threads.add(c);
+		System.out.println("Created Thread");
 	    }
 	    catch (IOException e) {
 		e.printStackTrace();
@@ -160,39 +163,42 @@ public class Controller {
 	private Player player;
 	private Socket socket;
 	public ClientHandlingThread(Socket s) {
-	    socket = s;
+	    super("Client thread");
+	    this.socket = s;
 	}
 
 	public void run() {
+	    System.out.println("In thread.");
 	    BufferedReader in = null;
 	    PrintWriter out = null;
 	    try {
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		out = new PrintWriter(socket.getOutputStream(), true);
-	    
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-	    }
-	    String inputLine = "";
-	    try {
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));	    
+		String inputLine = "";
 		while((inputLine = in.readLine()) != null) {
+		    System.out.println("inputLine = " + inputLine);
 		    String[] input = inputLine.split(":");
 		    if (input[0].equals("logout")) {
 			break;
 		    }
 		    if (input[0].equals("newUser")) {
 			player = createUser(input[1], input[2]);
-			break;
+			out.println("Success, please login");
 		    }
 		    else if (input[0].equals("login")) {
+			boolean loggedIn = false;
 			for (Player p : players) {
 			    if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
 				player = p;
-				break;
+				loggedIn = true;
 			    }
 			}
-			out.println("tryAgain");
+			if (!loggedIn) {
+			    out.println("tryAgain");
+			}
+			else {
+			    out.println("Success");
+			}
 		    }
 		    else {
 			out.println("error");
