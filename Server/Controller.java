@@ -6,8 +6,9 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
-    private final int port = 55560;
-
+    private final int port = 55561;
+    private ServerSocket socket;
+   
     public Controller() {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
@@ -74,7 +75,7 @@ public class Controller {
     }
     
     private void startServer() {
-	ServerSocket socket = null;
+	socket = null;
 	try {
 	    socket = new ServerSocket(port);
 	}
@@ -117,6 +118,12 @@ public class Controller {
     private void shutDown() {
 	savePlayersToFile();
 	saveStockAPIToFile();
+	try {
+	    socket.close();
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
 	// This will shut down the server -- please also save all of the players states so that nothing breaks !  And/Or so that data isn't lost
     }
 
@@ -172,46 +179,40 @@ public class Controller {
 	    try {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String inputLine;                                                                        
+                String inputLine = "";                                                                        
                 while ((inputLine = in.readLine()) != null) {                                          
-                    out.println(inputLine);
+                    String[] input = inputLine.split(" ");
+		    if (input[0].equals("shutdown")) {
+			shutDown();
+		    }
+		    if (player == null) {
+			if (input[0].equals("create")) {
+			    player = createUser(input[1], input[2]);
+			    out.println("Success");
+			}
+			else if (input[0].equals("login")) {
+			    for (Player p : players) {
+				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
+				    player = p;
+				}
+			    }
+			    out.println("Success");
+			}
+			else {
+			    out.println("Error");
+			}
+		    }
+		    else {
+
+		    }
 		}
-                socket.close(); // If we are out of the loop we will close all of our streams                                                                                                               
-                out.close();
-                in.close();
+               socket.close();
+	       out.close();
+	       in.close();
             }
             catch (IOException e) {
                 e.printStackTrace(); // Exception handling                                                                                                                                                  
             }
-
-
-		    /*		    System.out.println("inputLine = " + inputLine);
-				    String[] input = inputLine.split(":");
-				    if (input[0].equals("logout")) {
-			break;
-		    }
-		    if (input[0].equals("newUser")) {
-			player = createUser(input[1], input[2]);
-			out.println("Success, please login");
-		    }
-		    else if (input[0].equals("login")) {
-			boolean loggedIn = false;
-			for (Player p : players) {
-			    if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
-				player = p;
-				loggedIn = true;
-			    }
-			}
-			if (!loggedIn) {
-			    out.println("tryAgain");
-			    }
-			    else {
-			    out.println("Success");
-			    }
-			    }
-			    else {
-			    out.println("error");
-			    }*/
 	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
     }

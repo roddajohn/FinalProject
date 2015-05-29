@@ -29,7 +29,9 @@ public class StockAPI {
 	for (int i = 0; i < stocks.size(); i++) {
 	    toReturn += stocks.get(i).getSymbol();
 	}
-	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	if (toReturn.length() != 0) {
+	    toReturn = toReturn.substring(0, toReturn.length() - 1);
+	}
 	return toReturn;
     }
 

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Client {
     private final String serverAddress = "127.0.0.1";
-    private final int port = 55560;
+    private final int port = 55561;
 
     public Client() {
 	
@@ -33,6 +33,7 @@ public class Client {
 	try {
 	    while ((input = console.nextLine()) != null) {
 		out.println(input);
+		System.out.println("Waiting for input");
 		System.out.println("Server: " + in.readLine());
 		System.out.print("input: ");
 	    }
