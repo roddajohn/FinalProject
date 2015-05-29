@@ -71,7 +71,56 @@ public class Controller {
     }
     
     private void startServer() {
-	// To be implemented, this will start the server
+	ServerSocket socket = null;
+	ArrayList<ClientHandlingThread> threads = new ArrayList<ClientHandlingThread>();
+	
+	try {
+	    socket = new ServerSocket(23456);
+	}
+	catch (IOException e) {
+	    e.printStackTrace();
+	}
+	
+	Socket client = null;
+	while (1 == 1) {
+	    try {
+		client = socket.accept();
+		BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+
+		String inputLine = "";
+		while((inputLine = in.readLine()) != null) {
+		    String[] input = inputLine.split(":");
+		    if (input[0].equals("newUser")) {
+			Player p = createUser(input[1], input[2]);
+			ClientHandlingThread c = new ClientHandlingThread(p, client);
+			c.start();
+			threads.add(c);
+			break;
+		    }
+		    else if (input[0].equals("login")) {
+			for (Player p : players) {
+			    if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
+				ClientHandlingThread c = new ClientHandlingThread(p, client);
+				c.start();
+				threads.add(c);
+				break;
+			    }
+			}
+			out.println("tryAgain");
+		    }
+		    else {
+			out.println("error");
+		    }
+		}
+	    }
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+	    catch (NullPointerException e) {
+		e.printStackTrace();
+	    }
+	}
     }
 
     private boolean buyStock(Player p, String symbol, int amt) {
@@ -131,8 +180,10 @@ public class Controller {
 
     private class ClientHandlingThread extends Thread { 
 	private Player player;
+	private Socket socket;
 	public ClientHandlingThread(Player p, Socket s) {
 	    player = p;
+	    socket = s;
 	}
 
 	public void run() {
