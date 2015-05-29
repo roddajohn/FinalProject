@@ -6,7 +6,7 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
-    private final int port = 55559;
+    private final int port = 55560;
 
     public Controller() {
 	api = new StockAPI();
@@ -169,16 +169,25 @@ public class Controller {
 
 	public void run() {
 	    System.out.println("In thread.");
-	    BufferedReader in = null;
-	    PrintWriter out = null;
 	    try {
-		out = new PrintWriter(socket.getOutputStream(), true);
-		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));	    
-		String inputLine = "";
-		while((inputLine = in.readLine()) != null) {
-		    System.out.println("inputLine = " + inputLine);
-		    String[] input = inputLine.split(":");
-		    if (input[0].equals("logout")) {
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                String inputLine;                                                                        
+                while ((inputLine = in.readLine()) != null) {                                          
+                    out.println(inputLine);
+		}
+                socket.close(); // If we are out of the loop we will close all of our streams                                                                                                               
+                out.close();
+                in.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace(); // Exception handling                                                                                                                                                  
+            }
+
+
+		    /*		    System.out.println("inputLine = " + inputLine);
+				    String[] input = inputLine.split(":");
+				    if (input[0].equals("logout")) {
 			break;
 		    }
 		    if (input[0].equals("newUser")) {
@@ -195,28 +204,14 @@ public class Controller {
 			}
 			if (!loggedIn) {
 			    out.println("tryAgain");
-			}
-			else {
+			    }
+			    else {
 			    out.println("Success");
-			}
-		    }
-		    else {
-			out.println("error");
-		    }
-		}
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-	    }
-		
-	    try {
-		socket.close();
-		out.close();
-		in.close();
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-	    }
+			    }
+			    }
+			    else {
+			    out.println("error");
+			    }*/
 	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
     }

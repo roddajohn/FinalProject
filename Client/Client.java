@@ -4,57 +4,50 @@ import java.util.*;
 
 public class Client {
     private final String serverAddress = "127.0.0.1";
-    private final int port = 23456;
+    private final int port = 55560;
 
     public Client() {
 	
     }
 
-    public runClient() {
-	Socket socket = null;
-	BufferedReader in = null;
-	PrintWriter out = null;
-	try {
-	    socket = new Socket(serverAddress, port);
-	    out = new PrintWriter(socket.getOutputStream());
-	    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	}
-	catch (UnknownHostException e) {
-	    e.printStackTrace();
-	}
-	catch (IOException e) {
-	    e.printStackTrace();
-	}
+    public void runClient() {
+	Socket serverSocket = null; // Sets up the socket, out and in variables                                                                                                                             
+        PrintWriter out = null;
+        BufferedReader in = null;
 
-	Scanner console = new Scanner(System.in);
-	
+        try {
+            serverSocket = new Socket(serverAddress, port);
+            out = new PrintWriter(serverSocket.getOutputStream(), true);
+	    in = new BufferedReader(new InputStreamReader(serverSocket.getInputStream()));
+        }
+        catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scanner console = new Scanner(System.in);
 	String input = "";
-
-	System.out.print("Command: ");
-	while ((input = console.nextLine()) != null) {
-	    if (input.equals("logout")) {
+	System.out.print("input: ");
+	try {
+	    while ((input = console.nextLine()) != null) {
 		out.println(input);
-		break;
+		System.out.println("Server: " + in.readLine());
+		System.out.print("input: ");
 	    }
-	    else {
-		out.println(input);
-	    }
-	    try {
-		System.out.print("Server: " + in.readLine());
-	    }
-	    catch (IOException e) {
-		e.printStackTrace();
-	    }
+	}
+	catch (IOException e) {
+	    e.printStackTrace(); // Exception handling                                                                                                                                                  
 	}
 
 	try {
-	    out.close();
-	    in.close();
-	    console.close();
-	    socket.close();
-	}
-	catch (IOException e) {
-	    e.printStackTrace();
-	}
+            in.close();
+            console.close();
+            serverSocket.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace(); // Exception handling                                                                                                                                                      
+        }
     }
 }
