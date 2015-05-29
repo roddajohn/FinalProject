@@ -7,10 +7,10 @@ public class Player {
     private String username;
     private String password;
 
-    public Player(String u, String p, int i) {
+    public Player(String u, String p) {
 	username = u;
 	password = p;
-	stocks = new ArrayList<String>();
+	stocks = new ArrayList<Stock>();
 	amounts = new ArrayList<Integer>();
 	money = 100000.0;
 	// For creating a new user
@@ -47,11 +47,6 @@ public class Player {
     public String getUsername() {
 	return username;
     }
-
-    public int getID() {
-	return id;
-    }
-
     public String getPassword() {
 	return password;
     }
@@ -77,12 +72,12 @@ public class Player {
     public boolean buyStock(String s, int amt) { // The stock needs to already be in the stocks list
 	for (int i = 0; i < stocks.size(); i++) {
 	    if (stocks.get(i).getSymbol().equals(s)) {
-		if (stocks.get(i).getCurrentPrice() * amt > money) {
+		if (stocks.get(i).getCurrentValue() * amt > money) {
 		    return false;
 		}
 		else {
-		    amounts.set(i, amounts.get(i) + stocks.get(i).getCurrentPrice() * amt);
-		    money -= stocks.get(i).getCurrentPrice() * amt;
+		    amounts.set(i, amounts.get(i) + amt);
+		    money -= stocks.get(i).getCurrentValue() * amt;
 		    return true;
 		}
 	    }
@@ -98,7 +93,7 @@ public class Player {
 		}
 		else {
 		    amounts.set(i, amounts.get(i) - amt);
-		    money += stocks.get(i).getCurrentPrice() + amt;
+		    money += stocks.get(i).getCurrentValue() + amt;
 		    return true;
 		}
 	    }

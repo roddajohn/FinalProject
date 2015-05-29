@@ -35,7 +35,7 @@ public class StockAPI {
 
     public void importStock(ArrayList<Stock> s) {
 	stocks = s;
-	updateStock();
+	updateStocks();
     }
 
     public Stock getStock(String symbol) {

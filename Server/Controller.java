@@ -14,7 +14,7 @@ public class Controller {
 	startServer();
     }
 
-    private  void loadPlayersFromFile() {
+    private void loadPlayersFromFile() {
 	BufferedReader in = null;
 	try {
 	    in = new BufferedReader(new FileReader("players.csv"));
@@ -112,23 +112,21 @@ public class Controller {
     private void saveStockAPIToFile() {
 	PrintWriter writer = null;
 	try {
-	    writer = new PrintWriter("api.csv", "UTF-8");
+	    writer = new PrintWriter("api.csv");
 	}
 	catch(FileNotFoundException e) {
 	    e.printStackTrace();
 	}
-	try {
-	    writer.println(api.toString());
-	    writer.close();
-	}
-	catch (IOException e) {
-	    e.printStackTrace();
-	}
+	writer.println(api.toString());
+	writer.close();
 	// Outputs the stockAPI to a file
     }
     
     private Player createUser(String username, String password) {
 	// This will create a new user
+	Player p = new Player(username, password);
+	players.add(p);
+	return p;
     }
 
     private class ClientHandlingThread extends Thread { 
