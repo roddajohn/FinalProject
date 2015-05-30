@@ -94,6 +94,7 @@ public class Controller {
 	    }
 	    catch (IOException e) {
 		e.printStackTrace();
+		break;
 	    }
 	    catch (NullPointerException e) {
 		e.printStackTrace();
@@ -124,6 +125,9 @@ public class Controller {
 	catch (IOException e) {
 	    e.printStackTrace();
 	}
+	for (int i = 0; i < threads.size(); i++) {
+	    threads.remove(0);
+	}
 	// This will shut down the server -- please also save all of the players states so that nothing breaks !  And/Or so that data isn't lost
     }
 
@@ -150,7 +154,7 @@ public class Controller {
 	catch(FileNotFoundException e) {
 	    e.printStackTrace();
 	}
-	writer.println(api.toString());
+	writer.println(api.toString(false));
 	writer.close();
 	// Outputs the stockAPI to a file
     }
@@ -183,8 +187,12 @@ public class Controller {
                 while ((inputLine = in.readLine()) != null) {                                          
                     String[] input = inputLine.split(" ");
 		    if (input[0].equals("shutdown")) {
-			shutDown();
+			shutDown(); // To change, this is for an ADMINISTRATOR, and NOT FOR NORMAL USERS
 		    }
+		    /*
+		      To add, check to make sure the username is unique when added
+		      If they get the username right, don't make them enter it again and again...
+		     */
 		    if (player == null) {
 			if (input[0].equals("create")) {
 			    player = createUser(input[1], input[2]);
@@ -203,7 +211,17 @@ public class Controller {
 			}
 		    }
 		    else {
-
+			if (input[0].equals("get")) {
+			    out.println(api.getStock(input[1]).toString(true));
+			}
+			else if (input[0].equals("buy")) {
+			    buyStock(player, input[1], Integer.parseInt(input[2]));
+			    out.println("Success");
+			}
+			else if (input[0].equals("sell")) {
+			    sellStock(player, input[1], Integer.parseInt(input[2]));
+			    out.println("Success");
+			}
 		    }
 		}
                socket.close();

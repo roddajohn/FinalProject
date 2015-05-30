@@ -209,9 +209,14 @@ public class Stock {
 	return PEGRatio;
     }
     
-    public String toString() {
+    public String toString(boolean a) {
 	String toReturn = "";
-	toReturn += symbol;
+	if (a) {
+	    toReturn += symbol + " Price: " + currentValue;
+	}
+	else {
+	    toReturn += symbol;
+	}
 	return toReturn;
     }
 }

@@ -44,7 +44,6 @@ public class Player {
 	for (int i = 0; i < amounts.size(); i++) {
 	    toReturn += amounts.get(i) + ";";
 	}
-	toReturn = toReturn.substring(0, toReturn.length() - 1);
 	return toReturn;
     }
 
