@@ -6,7 +6,7 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
-    private final int port = 55561;
+    private final int port = 55562;
     private ServerSocket socket;
    
     public Controller() {
@@ -196,8 +196,19 @@ public class Controller {
 		     */
 		    if (player == null) {
 			if (input[0].equals("create")) {
-			    player = createUser(input[1], input[2]);
-			    out.println("Success");
+			    boolean isUsed = false;
+			    for (int i = 0; i < players.size(); i++) {
+				if (players.get(i).getUsername().equals(input[1])) {
+				    isUsed = true;
+				}
+			    }
+			    if (!isUsed) {
+				player = createUser(input[1], input[2]);
+				out.println("Success");
+			    }
+			    else {
+				out.println("Error -- that username is already in use");
+			    }
 			}
 			else if (input[0].equals("login")) {
 			    for (Player p : players) {
