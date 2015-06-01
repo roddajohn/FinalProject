@@ -1,3 +1,5 @@
+For the release due 6/1/15 -- please see the branch entitled 6/1/15
+
 Before Wednesday May 27th
 
 Rodda: I created the basic Stock API which uses the Yahoo finance API to get the stocks as well as setup a basic Stock class and started to implement related get methods.
