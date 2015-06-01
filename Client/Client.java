@@ -33,8 +33,14 @@ public class Client {
 	try {
 	    while ((input = console.nextLine()) != null) {
 		out.println(input);
-		System.out.println("Waiting for input");
-		System.out.println("Server: " + in.readLine());
+		if (input.equals("shutdown")) {
+		    break;
+		}
+		String fromServer = "";
+		while (fromServer.equals("")) {
+		    fromServer = in.readLine();
+		}
+		System.out.println("Server: " + fromServer);
 		System.out.print("input: ");
 	    }
 	}

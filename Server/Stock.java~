@@ -208,13 +208,7 @@ public class Stock {
     public double getPEGRatio() {
 	return PEGRatio;
     }
-
-
-    public String toString() {
-	String toReturn = "";
-	toReturn += symbol;
-	return toReturn;
-    }
+    
     public String toString(boolean a) {
 	String toReturn = "";
 	if (a) {

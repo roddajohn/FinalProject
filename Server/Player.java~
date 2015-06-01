@@ -51,7 +51,7 @@ public class Player {
     public String printPortfolio() {
 	String toReturn = "";
 	for (int i = 0; i < stocks.size(); i++) {
-	    toReturn += stocks.get(i).getSymbol() + " # of Shares: " + amounts.get(i) + " Current Price: " + stocks.get(i).getCurrentValue() + ";";
+	    toReturn += stocks.get(i).getSymbol() + " # of Shares: " + amounts.get(i) + " Current Price: " + stocks.get(i).getCurrentValue() + "\n";
 	}
 	return toReturn;
     }
@@ -109,7 +109,7 @@ public class Player {
 		}
 		else {
 		    amounts.set(i, amounts.get(i) - amt);
-		    money += stocks.get(i).getCurrentValue() * amt;
+		    money += stocks.get(i).getCurrentValue() + amt;
 		    return true;
 		}
 	    }

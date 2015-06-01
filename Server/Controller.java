@@ -13,8 +13,8 @@ public class Controller {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
 	threads = new ArrayList<ClientHandlingThread>();
-	loadPlayersFromFile();
 	loadAPIFromFile();
+	loadPlayersFromFile();
 	startServer();
     }
 
@@ -34,7 +34,7 @@ public class Controller {
 		String[] amts = input[4].split(";");
 		ArrayList<Stock> s = new ArrayList<Stock>();
 		for (int i = 0; i < stocks.length; i++) {
-		    s.add(new Stock(stocks[i]));
+		    s.add(api.getStock(stocks[i]));
 		}
 		ArrayList<Integer> j = new ArrayList<Integer>();
 		for (int i = 0; i < amts.length; i++) {
@@ -154,7 +154,7 @@ public class Controller {
 	catch(FileNotFoundException e) {
 	    e.printStackTrace();
 	}
-	writer.println(api.toString(false));
+	writer.println(api.toString());
 	writer.close();
 	// Outputs the stockAPI to a file
     }
@@ -188,6 +188,7 @@ public class Controller {
                     String[] input = inputLine.split(" ");
 		    if (input[0].equals("shutdown")) {
 			shutDown(); // To change, this is for an ADMINISTRATOR, and NOT FOR NORMAL USERS
+			quitThread(this);
 		    }
 		    /*
 		      To add, check to make sure the username is unique when added
@@ -201,10 +202,16 @@ public class Controller {
 			else if (input[0].equals("login")) {
 			    for (Player p : players) {
 				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
+			
 				    player = p;
 				}
 			    }
-			    out.println("Success");
+			    if (player != null) {
+				out.println("Success");
+			    }
+			    else {
+				out.println("Try again");
+			    }
 			}
 			else {
 			    out.println("Error");
@@ -214,13 +221,27 @@ public class Controller {
 			if (input[0].equals("get")) {
 			    out.println(api.getStock(input[1]).toString(true));
 			}
+			else if (input[0].equals("money")) {
+			    out.println("Money: " + player.getMoney());
+			}
+			else if (input[0].equals("portfolio")) {
+			    out.println("Portfolio: " + player.printPortfolio());
+			}
 			else if (input[0].equals("buy")) {
-			    buyStock(player, input[1], Integer.parseInt(input[2]));
-			    out.println("Success");
+			    if (buyStock(player, input[1], Integer.parseInt(input[2]))) {
+				out.println("Success");
+			    }
+			    else {
+				out.println("Error");
+			    }
 			}
 			else if (input[0].equals("sell")) {
-			    sellStock(player, input[1], Integer.parseInt(input[2]));
-			    out.println("Success");
+			    if (sellStock(player, input[1], Integer.parseInt(input[2]))) {
+				out.println("Success");
+			    }
+			    else {
+				out.println("Error");
+			    }
 			}
 		    }
 		}
