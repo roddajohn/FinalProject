@@ -13,8 +13,11 @@ public class Controller {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
 	threads = new ArrayList<ClientHandlingThread>();
+	System.out.println("ArrayLists are created");
 	loadAPIFromFile();
+	System.out.println("Load API from file");
 	loadPlayersFromFile();
+	System.out.println("Starting server");
 	startServer();
     }
 

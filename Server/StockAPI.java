@@ -68,6 +68,7 @@ public class StockAPI {
     public void addStockToFollow(String symbol) {
 	stocks.add(new Stock(symbol));
 	updateStocks();
+	System.out.println("Updated in addStockToFollow");
     }
 
     public ArrayList<Stock> getStocks() {
@@ -196,6 +197,9 @@ public class StockAPI {
 		e.printStackTrace();
 	    }
 	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+	    catch (Exception e) {
 		e.printStackTrace();
 	    }
 	    try {
