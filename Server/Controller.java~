@@ -13,13 +13,11 @@ public class Controller {
 	api = new StockAPI();
 	players = new ArrayList<Player>();
 	threads = new ArrayList<ClientHandlingThread>();
-	System.out.println("ArrayLists are created");
+	CommandLine c = new CommandLine();
+	c.start();
 	loadAPIFromFile();
-	System.out.println("Load API from file");
 	loadPlayersFromFile();
-	System.out.println("Starting server");
 	startServer();
-	System.out.println("Out of the server");
     }
 
     private void loadPlayersFromFile() {
@@ -34,16 +32,19 @@ public class Controller {
 	try {
 	    while ((line = in.readLine()) != null) {
 		String[] input = line.split(",");
-		String[] stocks = input[3].split(";");
-		String[] amts = input[4].split(";");
 		ArrayList<Stock> s = new ArrayList<Stock>();
-		for (int i = 0; i < stocks.length; i++) {
-		    s.add(api.getStock(stocks[i]));
-		}
 		ArrayList<Integer> j = new ArrayList<Integer>();
-		for (int i = 0; i < amts.length; i++) {
-		    j.add(Integer.parseInt(amts[i]));
+		try {
+		    String[] stocks = input[3].split(";");
+		    String[] amts = input[4].split(";");
+		    for (int i = 0; i < stocks.length; i++) {
+			s.add(api.getStock(stocks[i]));
+		    }
+		    for (int i = 0; i < amts.length; i++) {
+			j.add(Integer.parseInt(amts[i]));
+		    }
 		}
+		catch (ArrayIndexOutOfBoundsException e){}
 		players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j));
 	    }
 	    in.close();
@@ -79,12 +80,9 @@ public class Controller {
     }
     
     private void startServer() {
-	System.out.println("Function to start server has started to run");
 	socket = null;
-	System.out.println("Inside of starting the server");
 	try {
 	    socket = new ServerSocket(port);
-	    System.out.println("Just started server");
 	}
 	catch (IOException e) {
 	    e.printStackTrace();
@@ -97,7 +95,6 @@ public class Controller {
 		ClientHandlingThread c = new ClientHandlingThread(client);
 		c.start(); 
 		threads.add(c);
-		System.out.println("Created Thread");
 	    }
 	    catch (IOException e) {
 		e.printStackTrace();
@@ -133,6 +130,7 @@ public class Controller {
 	    e.printStackTrace();
 	}
 	for (int i = 0; i < threads.size(); i++) {
+	    threads.get(0).sendQuitMessage();
 	    threads.remove(0);
 	}
 	// This will shut down the server -- please also save all of the players states so that nothing breaks !  And/Or so that data isn't lost
@@ -185,17 +183,27 @@ public class Controller {
 	    this.socket = s;
 	}
 
+	public void sendQuitMessage() {
+	    try {
+		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+		out.println("quit");
+	    }
+	    catch (Exception e) {
+		e.printStackTrace();
+	    }
+	}
+
 	public void run() {
-	    System.out.println("In thread.");
 	    try {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 String inputLine = "";                                                                        
                 while ((inputLine = in.readLine()) != null) {                                          
                     String[] input = inputLine.split(" ");
-		    if (input[0].equals("shutdown")) {
-			shutDown(); // To change, this is for an ADMINISTRATOR, and NOT FOR NORMAL USERS
-			quitThread(this);
+		    if (input[0].equals("logout")) {
+       			quitThread(this);
 		    }
 		    /*
 		      To add, check to make sure the username is unique when added
@@ -228,11 +236,11 @@ public class Controller {
 				out.println("Success");
 			    }
 			    else {
-				out.println("Try again");
+				out.println("Try again -- login failed");
 			    }
 			}
 			else {
-			    out.println("Error");
+			    out.println("Error -- command not understood");
 			}
 		    }
 		    else {
@@ -246,19 +254,30 @@ public class Controller {
 			    out.println("Portfolio: " + player.printPortfolio());
 			}
 			else if (input[0].equals("buy")) {
-			    if (buyStock(player, input[1], Integer.parseInt(input[2]))) {
-				out.println("Success");
+			    try {
+				if (buyStock(player, input[1], Integer.parseInt(input[2]))) {
+				    out.println("Success");
+				}
+				else {
+				    out.println("Error -- you don't have enough money");
+				}
 			    }
-			    else {
-				out.println("Error");
+			    catch (ArrayIndexOutOfBoundsException e) {
+				out.println("Error -- please don't forget parameters");
 			    }
 			}
 			else if (input[0].equals("sell")) {
-			    if (sellStock(player, input[1], Integer.parseInt(input[2]))) {
-				out.println("Success");
+			    try {
+				if (sellStock(player, input[1], Integer.parseInt(input[2]))) {
+				    out.println("Success");
+				    player.removeStocksWithZeros();
+				}
+				else {
+				    out.println("Error -- you don't have that many shares");
+				}
 			    }
-			    else {
-				out.println("Error");
+			    catch (ArrayIndexOutOfBoundsException e) {
+				out.println("Error -- please don't forget parameters");
 			    }
 			}
 		    }
@@ -268,8 +287,7 @@ public class Controller {
 	       in.close();
             }
             catch (IOException e) {
-                e.printStackTrace(); // Exception handling                                                                                                                                                  
-            }
+	    }
 	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
     }
@@ -280,7 +298,18 @@ public class Controller {
 	}
 
 	public void run() {
-
+	    Scanner console = new Scanner(System.in);
+	    while (1 == 1) {
+		System.out.print("Command: ");
+		String line = "";
+		while ((line = console.nextLine()) != null) {
+		    if (line.equals("shutdown")) {
+			shutDown();
+		    }
+		    System.out.println();
+		    System.out.print("Command: ");
+		}
+	    }
 	}
 	// This takes input from the server command line to run commands, currently, only the shutDown() function
     }

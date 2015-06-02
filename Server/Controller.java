@@ -20,6 +20,16 @@ public class Controller {
 	startServer();
     }
 
+    private String printPlayers() {
+	String toReturn = "Players: ";
+	for (int i = 0; i < players.size(); i++) {
+	    toReturn += "Username: " + players.get(i).getUsername();
+	    toReturn += " Money: " + players.get(i).getMoney();
+	    toReturn += " Portfolio: " + players.get(i).printPortfolio();
+	}
+	return toReturn;
+    }
+
     private void loadPlayersFromFile() {
 	BufferedReader in = null;
 	try {
@@ -34,6 +44,7 @@ public class Controller {
 		String[] input = line.split(",");
 		ArrayList<Stock> s = new ArrayList<Stock>();
 		ArrayList<Integer> j = new ArrayList<Integer>();
+		boolean a = false;
 		try {
 		    String[] stocks = input[3].split(";");
 		    String[] amts = input[4].split(";");
@@ -43,9 +54,16 @@ public class Controller {
 		    for (int i = 0; i < amts.length; i++) {
 			j.add(Integer.parseInt(amts[i]));
 		    }
+		    if (input[5].equals("true")) {
+			a = true;
+		    }
 		}
-		catch (ArrayIndexOutOfBoundsException e){}
-		players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j));
+		catch (ArrayIndexOutOfBoundsException e){
+		    if (input[3].equals("true")) {
+			a = true;
+		    }
+		}
+		players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j, a));
 	    }
 	    in.close();
 	}
@@ -195,6 +213,14 @@ public class Controller {
 	    }
 	}
 
+	public void setMoney(String username, double money) {
+	    for (Player p : players) {
+		if (p.getUsername().equals(username)) {
+		    p.setMoney(money);
+		}
+	    }
+	}
+
 	public void run() {
 	    try {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -227,8 +253,7 @@ public class Controller {
 			}
 			else if (input[0].equals("login")) {
 			    for (Player p : players) {
-				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
-			
+				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {			
 				    player = p;
 				}
 			    }
@@ -244,7 +269,26 @@ public class Controller {
 			}
 		    }
 		    else {
-			if (input[0].equals("get")) {
+			if (player.isAdministrator() && input[0].equals("players")) {
+			    out.println(printPlayers());
+			}
+			else if (player.isAdministrator() && input[0].equals("player")) {
+			    try {
+				if (input[1].equals("set")) {
+				    if (input[2].equals("money")) {
+					setMoney(input[3], Double.parseDouble(input[4]));
+					out.println("Success");
+				    }
+				}
+			    }
+			    catch (ArrayIndexOutOfBoundsException e) {
+				out.println("Error in parsing the command");
+			    }
+			    catch (NumberFormatException e) {
+				out.println("Number format exception");
+			    }
+			}
+			else if (input[0].equals("get")) {
 			    out.println(api.getStock(input[1]).toString(true));
 			}
 			else if (input[0].equals("money")) {

@@ -6,22 +6,25 @@ public class Player {
     private double money;
     private String username;
     private String password;
-
+    private boolean administrator;
+    
     public Player(String u, String p) {
 	username = u;
 	password = p;
 	stocks = new ArrayList<Stock>();
 	amounts = new ArrayList<Integer>();
 	money = 100000.0;
+	administrator = false;
 	// For creating a new user
     }
 
-    public Player(String u, String p, double m, ArrayList<Stock> stcks, ArrayList<Integer> amts) {
+    public Player(String u, String p, double m, ArrayList<Stock> stcks, ArrayList<Integer> amts, boolean a) {
 	username = u;
 	password = p;
 	money = m;
 	stocks = stcks;
 	amounts = amts;
+	administrator = a;
 	// For loading a user from file
     }
 
@@ -55,6 +58,13 @@ public class Player {
 	    toReturn += amounts.get(i) + ";";
 	}
 	toReturn = toReturn.substring(0, toReturn.length() - 1);
+	toReturn += ",";
+	if (administrator) {
+	    toReturn += "true";
+	}
+	else {
+	    toReturn += "false";
+	}
 	return toReturn;
     }
 
@@ -64,6 +74,10 @@ public class Player {
 	    toReturn += stocks.get(i).getSymbol() + " # of Shares: " + amounts.get(i) + " Current Price: " + stocks.get(i).getCurrentValue() + ";";
 	}
 	return toReturn;
+    }
+
+    public boolean isAdministrator() {
+	return administrator;
     }
 
     public double getMoney() {
@@ -79,6 +93,10 @@ public class Player {
 
     public void addMoney(double d) {
 	money += d;
+    }
+
+    public void setMoney(double d) {
+	money = d;
     }
 
     public void addStock(Stock s) {

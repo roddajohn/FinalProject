@@ -33,6 +33,16 @@ public class Player {
 	return amounts;
     }
 
+    public void removeStocksWithZeros() {
+	for (int i = 0; i < stocks.size(); i++) {
+	    if (amounts.get(i) == 0) {
+		amounts.remove(i);
+		stocks.remove(i);
+		i--;
+	    }
+	}
+    }
+    
     public String toString() {
 	String toReturn = "";
 	toReturn += username + "," + password + "," + money + ",";
