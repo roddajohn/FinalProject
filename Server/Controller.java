@@ -279,6 +279,12 @@ public class Controller {
 					setMoney(input[3], Double.parseDouble(input[4]));
 					out.println("Success");
 				    }
+				    else {
+					out.println("Error");
+				    }
+				}
+				else {
+				    out.println("Error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
@@ -323,6 +329,9 @@ public class Controller {
 			    catch (ArrayIndexOutOfBoundsException e) {
 				out.println("Error -- please don't forget parameters");
 			    }
+			}
+			else {
+			    out.println("Error parsing that command");
 			}
 		    }
 		}
