@@ -44,5 +44,24 @@ public class Client {
       }
       return false;
     }
+    
+    public boolean sendMessage(String msg) {
+       try {
+         out.println(msg);
+         String input = "";
+         while((input = in.readLine()) == null) {
+           
+         }
+         if (input.equals("success")) {
+           return true;
+         }
+         else {
+           return false;
+         }  
+       }
+      catch (IOException e) {
+        return false;
+      }
+    }
 }
 

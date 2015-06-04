@@ -52,32 +52,72 @@ void keyPressed() {
 }
 
 public void login(String u, String p) {
-  println(u + " " + p);
+  if (client.sendMessage("login " + u + " " + p)) {
+    openMainWindow(); 
+  }
+  else {
+    errorMessage("Incorrect username or password");    
+  }
 }
 
 public void create(String u, String p) {
-  println(u + " " + p);
+  if (client.sendMessage("create " + u + " " + p)) {
+    openMainWindow(); 
+  }
+  else {
+    errorMessage("That username is already in use.");    
+  }
 }
 
 public void controlEvent(ControlEvent e) {
   if (e.getController().getId() == 3) {
-    login(username.getText(), password.getText());
-    password.setText("");
+    if (!password.getText().equals("")) {
+      login(username.getText(), password.getText());
+      password.setText("");
+    }
+    else {
+      errorMessage("No blank passwords allowed");  
+    }
   }
   if (e.getController().getId() == 1) {
-    login(username.getText(), password.getText());
-    password.setText("");
+    if (!password.getText().equals("")) {
+      login(username.getText(), password.getText());
+      password.setText("");
+    }
+    else {
+      errorMessage("No blank passwords allowed");  
+    }
   }
   if (e.getController().getId() == 2) {
-    login(username.getText(), password.getText());
-    password.setText("");
+    if (!password.getText().equals("")) {
+      login(username.getText(), password.getText());
+      password.setText("");
+    }
+    else {
+      errorMessage("No blank passwords allowed");  
+    }
   }
   else if (e.getController().getId() == 4) {
-    create(username.getText(), password.getText());
-    password.setText("");  
+    if (!password.getText().equals("")) {
+      create(username.getText(), password.getText());
+      password.setText("");
+    }
+    else {
+      errorMessage("No blank passwords allowed");  
+    } 
   }
 }
 
 public void errorMessage(String e) {
   JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE); 
+}
+
+public void stop() {
+  client.sendMessage("logout");
+  exit(); 
+} 
+
+public void openMainWindow() {
+  MainFrame m = new MainFrame(client);
+  this.frame.hide();
 }
