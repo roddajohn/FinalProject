@@ -6,7 +6,7 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
-    private final int port = 55562;
+    private final int port = 55564;
     private ServerSocket socket;
    
     public Controller() {
