@@ -24,6 +24,5 @@ public class MainFrame extends JFrame {
       client.sendMessage("logout");
       exit(); 
     } 
-  } 
- 
+  }  
 }
