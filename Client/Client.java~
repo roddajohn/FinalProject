@@ -33,7 +33,7 @@ public class Client {
 	try {
 	    while ((input = console.nextLine()) != null) {
 		out.println(input);
-		if (input.equals("logout")) {
+		if (input.equals("shutdown")) {
 		    break;
 		}
 		String fromServer = "";
@@ -45,7 +45,7 @@ public class Client {
 	    }
 	}
 	catch (IOException e) {
-	    System.out.println("The server is now down, try again later");
+	    e.printStackTrace(); // Exception handling                                                                                                                                                  
 	}
 
 	try {
