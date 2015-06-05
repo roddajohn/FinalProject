@@ -7,8 +7,8 @@
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList<Stock> StocksConsidered;
-     private ArrayList<double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private ArrayList StocksConsidered;
+     private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
      
      private double MinIndex, MaxIndex;
      
@@ -21,8 +21,12 @@
          double SharesPerSecondActual;
         
          while (TF) {
+              
+              StocksConsidered = player1.getStocks();
+         StocksSharesPerMinute = player1.getStockSharesPerMinute();
+              ExpectedDifference = player1.getExpectedDifference();
+              StocksSharesPerMinute = player1.getWeights();
              
-<<<<<<< HEAD
               StockTrades();
                           
             SharesPerSecondActual = (StocksSharesPerMinute.get(MaxIndex)  +  StocksSharesPerMinute.get(MinIndex)/60);  
@@ -34,31 +38,12 @@
          wait(1000);
          }  
          
-=======
-	     StocksConsidered = player1.getStocks();
-	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
-	     ExpectedDifference = player1.getExpectedDifference();
-	     StocksSharesPerMinute = player1.getWeights();
-	     
-	     StockTrades();
-             
-	     SharesPerSecondActual = (((StockSharesPerMinute().get(MaxIndex)  +  StockSharesPerMinute().get(MinIndex))/60));  
-	     player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
-	     player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
-	     
-	     
-	     
-	     wait(1000);
-	 }  
-	 
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
      }
-     
-     //Array list of expected diffrences in the player class
-     
-     
+         
+    //Array list of expected diffrences in the player class
+                                     
+         
      public void StockTrades(){
-<<<<<<< HEAD
          int Min = (ExpectedDifference.get(0));
          int Max = (ExpectedDifference.get(0));
          MinIndex = -1;
@@ -66,30 +51,16 @@
          
          for (int i = 0; i < StocksConsidered.size(); i++){
              if (ExpectedDifference.get(i) < Min){
-                 MinStock = StocksConsidered.get(i);
-=======
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
-	 MinIndex = -1;
-	 MaxIndex = -1;
-	 
-	 for (int i = 0; i < StocksConsidered.size(); i++){
-	     if (ExpectedDifference.get(i) < Min){
-		 MinStock = StocksConsidered.get(i);
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
+                 Stock MinStock = StocksConsidered.get(i);
                  MinIndex = i;
                  
                  
              }
              
-<<<<<<< HEAD
                if (ExpectedDifference.get(i) > Max){
-=======
-	     if (tExpectedDifference.get(i) > Max){
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
-                 MaxStock = ExpectedDifference.get(i);
+                 Stock MaxStock = ExpectedDifference.get(i);
                  MaxIndex = i;
-                 
+                    
              }      
              
          }
@@ -187,13 +158,7 @@
     public void setForwardPricetoEarnings(double d){
 	FP2E = d;
     }
-    
-    public void setCompetitors(String a, String b, String c, String d) {
-	Comp1 = a;
-	Comp2 = b;
-	Comp3 = c;
-	Comp4 = d;
-    }
+   
     
     public void setAnnualEarningsperShare(double d) {
 	AEPS = d;
@@ -248,11 +213,11 @@
     }
     
     public void set52WeekVolume1(double d) {     
-	WeekVolume521 = d;
+	Week52Volume1 = d;
     }
     
     public void setVolume11(double d) {
-	Volume11 = d;
+	Volume1 = d;
     }
     
     public void setAvgVolume1(double d) {
@@ -372,7 +337,7 @@
     }
     
     public void WsetMeanRecomendations(double d) {
-	WMeanRecomendations = d;
+	WMeanReccomendations = d;
     }
     
     public void WsetPEGRatio(double d) {
