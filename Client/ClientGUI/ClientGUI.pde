@@ -10,6 +10,10 @@ boolean onUsername;
 Client client;
 
 void setup() {
+  client = null;
+  // THIS IS FOR TESTING PURPOSED ONLY
+  openMainWindow();
+  
   size(300, 300);
   c = new ControlP5(this);
   
