@@ -7,8 +7,8 @@
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList<Stocks> StocksConsidered;
-     private ArrayList<boolean> StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private ArrayList<Stock> StocksConsidered;
+     private ArrayList<double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
      
      private double MinIndex, MaxIndex;
      
@@ -17,47 +17,44 @@
    
 
 
-     public void TradingMaster(boolean TF, player player1){
+     public void TradingMaster(boolean TF, Player player1){
          double SharesPerSecondActual;
         
          while (TF) {
              
-	     StocksConsidered = player1.getStocks();
-	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
-	     ExpectedDifference = player1.getExpectedDifference();
-	     StocksSharesPerMinute = player1.getWeights();
-	     
-	     StockTrades();
+
+              StockTrades();
+                          
+            SharesPerSecondActual = (StocksSharesPerMinute.get(MaxIndex)  +  StocksSharesPerMinute.get(MinIndex)/60);  
+             player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
+             player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
              
-	     SharesPerSecondActual = (((StockSharesPerMinute().get(MaxIndex)  +  StockSharesPerMinute().get(MinIndex))/60));  
-	     player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
-	     player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
-	     
-	     
-	     
-	     wait(1000);
-	 }  
-	 
-     }
+            
+         
+         wait(1000);
+         }  
+
      
      //Array list of expected diffrences in the player class
      
      
      public void StockTrades(){
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
-	 MinIndex = -1;
-	 MaxIndex = -1;
-	 
-	 for (int i = 0; i < StocksConsidered.size(); i++){
-	     if (ExpectedDifference.get(i) < Min){
-		 MinStock = StocksConsidered.get(i);
+
+         int Min = (ExpectedDifference.get(0));
+         int Max = (ExpectedDifference.get(0));
+         MinIndex = -1;
+         MaxIndex = -1;
+         
+         for (int i = 0; i < StocksConsidered.size(); i++){
+             if (ExpectedDifference.get(i) < Min){
+                 MinStock = StocksConsidered.get(i);
                  MinIndex = i;
                  
                  
              }
-             
-	     if (tExpectedDifference.get(i) > Max){
+            
+               if (ExpectedDifference.get(i) > Max){
+
                  MaxStock = ExpectedDifference.get(i);
                  MaxIndex = i;
                  
@@ -109,13 +106,6 @@
 	openLastDay = d;
     }
 
-    public void setName(String s) {
-	name = s;
-    }
-
-    public void setSymbol(String s) {
-	symbol = s;
-    }
     
     public void setBid(double d){
 	BID = d;      
@@ -171,13 +161,6 @@
 	Comp2 = b;
 	Comp3 = c;
 	Comp4 = d;
-    }
-    
-    public void setEarningsDate(String date) {
-	ED = date;
-    }
-    public void setExDividendDate(String date){
-	EDD = date;  
     }
     
     public void setAnnualEarningsperShare(double d) {
@@ -263,13 +246,7 @@
     public void setForwardPricetoEarnings1(double d){
 	FP2E1 = d;
     }
-   
-    public void setEarningsDate1(String date) {
-	ED1 = date;
-    }
-    public void setExDividendDate1(String date){
-	EDD1 = date;  
-    }
+  
     
     public void setAnnualEarningsperShare1(double d) {
 	AEPS1 = d;
@@ -303,13 +280,6 @@
 	WopenLastDay = d;
     }
 
-    public void WsetName(String s) {
-	Wname = s;
-    }
-
-    public void WsetSymbol(String s) {
-	Wsymbol = s;
-    }
     
     public void WsetBid(double d){
 	WBID = d;      
@@ -329,7 +299,7 @@
     }
     
     public void Wset52WeekVolume(double d) {     
-	WWeekVolume52 = d;
+	WWeek52Volume = d;
     }
     
     public void WsetVolume(double d) {
@@ -359,13 +329,7 @@
     public void WsetForwardPricetoEarnings(double d){
 	WFP2E = d;
     }
-    
-    public void WsetEarningsDate(String date) {
-	WED = date;
-    }
-    public void WsetExDividendDate(String date){
-	WEDD = date;  
-    }
+ 
     
     public void WsetAnnualEarningsperShare(double d) {
 	WAEPS = d;
