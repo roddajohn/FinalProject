@@ -22,7 +22,7 @@
         
          while (TF) {
              
-<<<<<<< HEAD
+
               StockTrades();
                           
             SharesPerSecondActual = (StocksSharesPerMinute.get(MaxIndex)  +  StocksSharesPerMinute.get(MinIndex)/60);  
@@ -33,32 +33,13 @@
          
          wait(1000);
          }  
-         
-=======
-	     StocksConsidered = player1.getStocks();
-	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
-	     ExpectedDifference = player1.getExpectedDifference();
-	     StocksSharesPerMinute = player1.getWeights();
-	     
-	     StockTrades();
-             
-	     SharesPerSecondActual = (((StockSharesPerMinute().get(MaxIndex)  +  StockSharesPerMinute().get(MinIndex))/60));  
-	     player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
-	     player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
-	     
-	     
-	     
-	     wait(1000);
-	 }  
-	 
->>>>>>> origin
-     }
+
      
      //Array list of expected diffrences in the player class
      
      
      public void StockTrades(){
-<<<<<<< HEAD
+
          int Min = (ExpectedDifference.get(0));
          int Max = (ExpectedDifference.get(0));
          MinIndex = -1;
@@ -67,26 +48,13 @@
          for (int i = 0; i < StocksConsidered.size(); i++){
              if (ExpectedDifference.get(i) < Min){
                  MinStock = StocksConsidered.get(i);
-=======
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
-	 MinIndex = -1;
-	 MaxIndex = -1;
-	 
-	 for (int i = 0; i < StocksConsidered.size(); i++){
-	     if (ExpectedDifference.get(i) < Min){
-		 MinStock = StocksConsidered.get(i);
->>>>>>> origin
                  MinIndex = i;
                  
                  
              }
-             
-<<<<<<< HEAD
+            
                if (ExpectedDifference.get(i) > Max){
-=======
-	     if (tExpectedDifference.get(i) > Max){
->>>>>>> origin
+
                  MaxStock = ExpectedDifference.get(i);
                  MaxIndex = i;
                  
