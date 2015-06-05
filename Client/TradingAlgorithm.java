@@ -128,7 +128,7 @@
     }
     
     public void set52WeekVolume(double d) {     
-	WeekVolume52 = d;
+	Week52Volume = d;
     }
     
     public void setVolume(double d) {
@@ -169,7 +169,7 @@
     }
     
     public void setMeanRecomendations(double d) {
-	MeanRecomendations = d;
+	MeanReccomendations = d;
     }
     
     public void setPEGRatio(double d) {
@@ -191,9 +191,6 @@
 	openLastDay1 = d;
     }
 
-    public void setSymbol1(String s) {
-	symbol = s;
-    }
     
     public void setBid1(double d){
 	BID1 = d;      
@@ -254,7 +251,7 @@
     }
     
     public void setMeanRecomendations1(double d) {
-	MeanRecomendations1 = d;
+	MeanReccomendations1 = d;
     }
     
     public void setPEGRatio1(double d) {
