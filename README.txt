@@ -39,3 +39,15 @@ Tuesday June 2nd:
 Benjamin:
 
 Rodda: Added administrator features and worked on server-side administrator commands.
+
+Wednesday June 3rd:
+
+Benjamin:
+
+Rodda: Started work on the GUI.
+
+Thursday June 4th:
+
+Benjamin:
+
+Rodda: Continued work on the GUI

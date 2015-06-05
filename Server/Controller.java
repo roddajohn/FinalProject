@@ -245,10 +245,10 @@ public class Controller {
 			    }
 			    if (!isUsed) {
 				player = createUser(input[1], input[2]);
-				out.println("Success");
+				out.println("success");
 			    }
 			    else {
-				out.println("Error -- that username is already in use");
+				out.println("error");
 			    }
 			}
 			else if (input[0].equals("login")) {
@@ -258,14 +258,14 @@ public class Controller {
 				}
 			    }
 			    if (player != null) {
-				out.println("Success");
+				out.println("success");
 			    }
 			    else {
-				out.println("Try again -- login failed");
+				out.println("error");
 			    }
 			}
 			else {
-			    out.println("Error -- command not understood");
+			    out.println("error");
 			}
 		    }
 		    else {
@@ -277,15 +277,21 @@ public class Controller {
 				if (input[1].equals("set")) {
 				    if (input[2].equals("money")) {
 					setMoney(input[3], Double.parseDouble(input[4]));
-					out.println("Success");
+					out.println("success");
 				    }
+				    else {
+					out.println("error");
+				    }
+				}
+				else {
+				    out.println("error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Error in parsing the command");
+				out.println("error");
 			    }
 			    catch (NumberFormatException e) {
-				out.println("Number format exception");
+				out.println("error");
 			    }
 			}
 			else if (input[0].equals("get")) {
@@ -300,29 +306,32 @@ public class Controller {
 			else if (input[0].equals("buy")) {
 			    try {
 				if (buyStock(player, input[1], Integer.parseInt(input[2]))) {
-				    out.println("Success");
+				    out.println("success");
 				}
 				else {
-				    out.println("Error -- you don't have enough money");
+				    out.println("error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Error -- please don't forget parameters");
+				out.println("error");
 			    }
 			}
 			else if (input[0].equals("sell")) {
 			    try {
 				if (sellStock(player, input[1], Integer.parseInt(input[2]))) {
-				    out.println("Success");
+				    out.println("success");
 				    player.removeStocksWithZeros();
 				}
 				else {
-				    out.println("Error -- you don't have that many shares");
+				    out.println("error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Error -- please don't forget parameters");
+				out.println("error");
 			    }
+			}
+			else {
+			    out.println("error");
 			}
 		    }
 		}
