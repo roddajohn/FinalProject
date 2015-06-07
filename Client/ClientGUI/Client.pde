@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Client {
     private final String serverAddress = "127.0.0.1";
-    private final int port = 55562;
+    private final int port = 55564;
 
     private PrintWriter out;
     private BufferedReader in;
