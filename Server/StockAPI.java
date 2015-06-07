@@ -45,12 +45,14 @@ public class StockAPI {
 	for (int i = 0; i < stocks.size(); i++) {
 	    if (stocks.get(i).getSymbol().equals(symbol)) {
 		toReturn = stocks.get(i);
+		System.out.println("In get stock " + toReturn.toString());
 	    }
 	}
 	if (toReturn == null) {
 	    addStockToFollow(symbol);
 	    updateStocks();
 	    toReturn = getStock(symbol);
+	    System.out.println("In get stock " + toReturn.toString());
 	    removeStockToFollow(symbol);
 	}
 	return toReturn;
@@ -169,6 +171,7 @@ public class StockAPI {
 	    for (int i = 0; i < stocks.size(); i++) {
 		url += stocks.get(i).getSymbol() + ",";
 	    }
+	    System.out.println("URL = " + url);
 	    url = url.substring(0, url.length() - 1);
 	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + "p0" + "o0" + "v0" + "d0" + ENDOFURLQUOTE;
 	    try {
@@ -184,6 +187,7 @@ public class StockAPI {
 		br = new BufferedReader(new FileReader("quotes.csv"));
 		int i = 0; 
 		while ((line = br.readLine()) != null) {
+		    System.out.println("Getting line: " + line);
 		    String[] parsed = line.split(",");
 		    stocks.get(i).setName(parsed[0]);
 		    stocks.get(i).setSymbol(parsed[1]);

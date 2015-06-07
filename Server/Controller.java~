@@ -296,7 +296,6 @@ public class Controller {
 			}
 			else if (input[0].equals("get")) {
 			    out.println(api.getStock(input[1]).toString(true));
-			    System.out.println(api.getStock(input[1]).toString(true));
 			}
 			else if (input[0].equals("money")) {
 			    out.println("Money: " + player.getMoney());

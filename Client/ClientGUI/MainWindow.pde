@@ -10,6 +10,8 @@ public class MainWindow extends JFrame {
 
   // Add an administrator command that pushes the player, and StockAPI information to a file for easier viewing...
 
+  // Fix issues that occur when you search for a stock that doesn't exist...
+
   private ControlP5 c;
 
   public MainWindow(Client c) {
@@ -29,12 +31,15 @@ public class MainWindow extends JFrame {
 
     private Textlabel name, symbol, current, open, close, volume, dividends;
 
-    private int tabState;
+    private Toggle chart1, chart2, chart3;
+
+    private int tabState, chartState;
 
     String stock;
 
     public void setup() {
       tabState = 0;
+      chartState = 0;
       stocks = new ArrayList<Stock>();
       stock = "";
 
@@ -67,13 +72,16 @@ public class MainWindow extends JFrame {
       volume = c.addTextlabel("volumeT").setText("").setPosition(60, 220).moveTo("default").setColor(0);
       dividends = c.addTextlabel("dividendsT").setText("").setPosition(100, 245).moveTo("default").setColor(0);
 
+      chart1 = c.addToggle("chart1").setLabel("Chart 1").setPosition(181, 81).setWidth(139).setHeight(20).setId(6).moveTo("default").setValue(true).moveTo("default");
+      chart2 = c.addToggle("chart2").setLabel("Chart 2").setPosition(320, 81).setWidth(139).setHeight(20).setId(7).moveTo("default").setValue(false).moveTo("default");
+      chart3 = c.addToggle("chart3").setLabel("Chart 3").setPosition(459, 81).setWidth(140).setHeight(20).setId(8).moveTo("default").setValue(false).moveTo("default");;
+
       // Moving to correct tabs
 
       c.getController("search").moveTo("default");
       c.getController("searchField").moveTo("default");
       c.getController("searchButton").moveTo("default");
     }
-
     public void draw() {
       background(255);
       if (tabState == 0) {
@@ -96,32 +104,34 @@ public class MainWindow extends JFrame {
     }
 
     public void updateStock(String st) {
-      boolean found = false;
-      for (Stock s : stocks) {
-        if (s.getSymbol().equals(st)) {
+      if (!stock.equals("")) {
+        boolean found = false;
+        for (Stock s : stocks) {
+          if (s.getSymbol().equals(st)) {
+            String input = client.recieveInformation("get " + st);
+            if (input.equals("-1")) {
+              errorMessage("We have experienced an error, please contact Rodda");
+            } else {
+              String[] parsed = input.split(",");
+              s.setName(parsed[0]);
+              s.setSymbol(parsed[1]);
+              s.setCurrentValue(Double.parseDouble(parsed[2]));
+              s.setCloseLastDay(Double.parseDouble(parsed[3]));
+              s.setOpenLastDay(Double.parseDouble(parsed[4]));
+              s.setVolume(Double.parseDouble(parsed[5]));
+              s.setDividendsandYield(Double.parseDouble(parsed[6]));
+              found = true;
+            }
+          }
+        }
+        if (!found) {
           String input = client.recieveInformation("get " + st);
           if (input.equals("-1")) {
             errorMessage("We have experienced an error, please contact Rodda");
           } else {
             String[] parsed = input.split(",");
-            s.setName(parsed[0]);
-            s.setSymbol(parsed[1]);
-            s.setCurrentValue(Double.parseDouble(parsed[2]));
-            s.setCloseLastDay(Double.parseDouble(parsed[3]));
-            s.setOpenLastDay(Double.parseDouble(parsed[4]));
-            s.setVolume(Double.parseDouble(parsed[5]));
-            s.setDividendsandYield(Double.parseDouble(parsed[6]));
-            found = true;
+            stocks.add(new Stock(parsed[0], parsed[1], Double.parseDouble(parsed[2]), Double.parseDouble(parsed[3]), Double.parseDouble(parsed[4]), Double.parseDouble(parsed[5]), Double.parseDouble(parsed[6])));
           }
-        }
-      }
-      if (!found) {
-        String input = client.recieveInformation("get " + st);
-        if (input.equals("-1")) {
-          errorMessage("We have experienced an error, please contact Rodda");
-        } else {
-          String[] parsed = input.split(",");
-          stocks.add(new Stock(parsed[0], parsed[1], Double.parseDouble(parsed[2]), Double.parseDouble(parsed[3]), Double.parseDouble(parsed[4]), Double.parseDouble(parsed[5]), Double.parseDouble(parsed[6])));
         }
       }
     }
@@ -136,49 +146,81 @@ public class MainWindow extends JFrame {
             updateStock(stock);
           }
         } /*else if (keyCode == 82) {
-          updateStock(stock);
-        } */else if (keyCode == 9) {
+         updateStock(stock);
+         } */
+        else if (keyCode == 9) {
           if (search.isFocus()) {
             search.setFocus(false);
-        } else {
-          search.setFocus(true);
+          } else {
+            search.setFocus(true);
+          }
         }
       }
     }
-  }
 
-  public void controlEvent(ControlEvent e) {
-    switch(e.getId()) {
-    case 1:
-      tabState = 0;
-      break;
-    case 2:
-      tabState = 1;
-      break;
-    case 3:
-      tabState = 2;
-      break;
-    case 4:
-      if (search.getText().equals("")) {
-        errorMessage("You cannot leave the search field blank");
-      } else {
-        stock = search.getText();
+    public void controlEvent(ControlEvent e) {
+      switch(e.getId()) {
+      case 1:
+        tabState = 0;
+        break;
+      case 2:
+        tabState = 1;
+        break;
+      case 3:
+        tabState = 2;
+        break;
+      case 4:
+        if (search.getText().equals("")) {
+          errorMessage("You cannot leave the search field blank");
+        } else {
+          stock = search.getText();
+          updateStock(stock);
+        }
+        break;
+      case 5:
         updateStock(stock);
+        break;
+      /*case 6:
+        if (chartState == 0) {
+          chart1.setValue(true);
+        } else {
+          chart1.setValue(true);
+          chart2.setValue(false);
+          chart3.setValue(false);
+          chartState = 0;
+        }
+        break;
+      case 7:
+        if (chartState == 1) {
+          chart2.setValue(true);
+        } else {
+          chart1.setValue(false);
+          chart2.setValue(true);
+          chart3.setValue(false);
+          chartState = 1;
+        }
+        break;
+      case 8:
+        if (chartState == 2) {
+          chart3.setValue(true);
+        } else {
+          chart1.setValue(false);
+          chart2.setValue(false);
+          chart3.setValue(true);
+          chartState = 2;
+        }
+        break;*/
       }
-      break;
-    case 5:
-      updateStock(stock);
-      break;
+    }
+
+    public void stop() {
+      client.sendMessage("logout");
+      exit();
     }
   }
 
-  public void stop() {
-    client.sendMessage("logout");
-    exit();
+  public void errorMessage(String e) {
+    JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }
 
-public void errorMessage(String e) {
-  JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
-}
-}
