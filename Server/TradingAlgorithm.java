@@ -9,8 +9,8 @@ public class TradingAlgorithm{
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList<Stock> StocksConsidered;
-     private ArrayList<double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private ArrayList StocksConsidered;
+     private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
     
     private int Min, Max;
      
