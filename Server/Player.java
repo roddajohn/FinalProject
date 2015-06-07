@@ -3,6 +3,7 @@ import java.util.*;
 public class Player {
     private ArrayList<Stock> stocks;
     private ArrayList<Integer> amounts;
+    private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
     private double money;
     private String username;
     private String password;
@@ -35,7 +36,32 @@ public class Player {
     public ArrayList<Integer> getAmounts() {
 	return amounts;
     }
+    public ArrayList<Stock> getStocksConsidered(){
+        return stocks;
+        
+    }
+    
+    public ArrayList getStocksSharesPerMinute(){
+        return StocksSharesPerMinute;
+        
+        
+    }
+     
+    public ArrayList getExpectedDifference(){
+        return ExpectedDifference;
+        
+        
+    }
+    
+     
+    public ArrayList getWieghts(){
+        return Wieghts;
+        
+        
+    }
 
+    
+    
     public void removeStocksWithZeros() {
 	for (int i = 0; i < stocks.size(); i++) {
 	    if (amounts.get(i) == 0) {
