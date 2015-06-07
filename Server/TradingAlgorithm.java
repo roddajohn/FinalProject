@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
  import java.util.ArrayList;
-=======
 import java.util.*;
->>>>>>> origin
+
 
 public class TradingAlgorithm{
   
@@ -13,37 +12,42 @@ public class TradingAlgorithm{
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList StocksConsidered;
-     private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private List<Stock> StocksConsidered;
+     private List<Double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
 
      
-     private double MinIndex, MaxIndex;
+     private int MinIndex, MaxIndex;
+    private Stock MinStock, MaxStock;
+    
      
-     private Stock MinStock, MaxStock;
+     
      
    
 
 
      public void TradingMaster(boolean TF, Player player1){
-         double SharesPerSecondActual;
+         int SharesPerSecondActual;
         
          while (TF) {
 
 	     StocksConsidered = player1.getStocks();
-	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
+	     StocksSharesPerMinute = player1.getStocksSharesPerMinute();
 	     ExpectedDifference = player1.getExpectedDifference();
-	     StocksSharesPerMinute = player1.getWeights();
+	     StocksSharesPerMinute = player1.getWieghts();
 	     
 	     StockTrades();
              
-	     SharesPerSecondActual = (((StockSharesPerMinute().get(MaxIndex)  +  StockSharesPerMinute().get(MinIndex))/60));  
+	     SharesPerSecondActual = (int) (((StocksSharesPerMinute.get(MaxIndex)  +  StocksSharesPerMinute.get(MinIndex))/60));  
 	     player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
 	     player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
 	     
 	     
-	     
-	     wait(1000);
-	 }  
+             try {
+	     Thread.sleep(1000);
+             } catch(java.lang.InterruptedException ie){
+                 System.out.println(ie);
+             }
+         }
 	 
 
      }
@@ -54,27 +58,26 @@ public class TradingAlgorithm{
      
      public void StockTrades(){
 
-
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
+	 double Min1 = (ExpectedDifference.get(0));
+	 double Max1 = (ExpectedDifference.get(0));
 
 	 MinIndex = -1;
 	 MaxIndex = -1;
 	 
 	 for (int i = 0; i < StocksConsidered.size(); i++){
-	     if (ExpectedDifference.get(i) < Min){
+	     if (ExpectedDifference.get(i) < Min1){
 		 MinStock = StocksConsidered.get(i);
-
+				Min1 = ExpectedDifference.get(i);
                  MinIndex = i;
                  
                  
              }
 
-               if (ExpectedDifference.get(i) > Max){
+               if (ExpectedDifference.get(i) > Max1){
 
+					Max1 = ExpectedDifference.get(i);
 
-
-                 MaxStock = ExpectedDifference.get(i);
+                
                  MaxIndex = i;
                  
              }      
