@@ -1,4 +1,8 @@
+<<<<<<< HEAD
  import java.util.ArrayList;
+=======
+import java.util.*;
+>>>>>>> origin
 
 public class TradingAlgorithm{
   
@@ -11,6 +15,7 @@ public class TradingAlgorithm{
         
      private ArrayList StocksConsidered;
      private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
+
      
      private double MinIndex, MaxIndex;
      
@@ -23,7 +28,7 @@ public class TradingAlgorithm{
          double SharesPerSecondActual;
         
          while (TF) {
-   
+
 	     StocksConsidered = player1.getStocks();
 	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
 	     ExpectedDifference = player1.getExpectedDifference();
@@ -42,14 +47,17 @@ public class TradingAlgorithm{
 	 
 
      }
+
      
      //Array list of expected diffrences in the player class
      
      
      public void StockTrades(){
 
+
 	 int Min = (ExpectedDifference.get(0));
 	 int Max = (ExpectedDifference.get(0));
+
 	 MinIndex = -1;
 	 MaxIndex = -1;
 	 
@@ -61,8 +69,11 @@ public class TradingAlgorithm{
                  
                  
              }
- 
-	     if (ExpectedDifference.get(i) > Max){
+
+               if (ExpectedDifference.get(i) > Max){
+
+
+
                  MaxStock = ExpectedDifference.get(i);
                  MaxIndex = i;
                  

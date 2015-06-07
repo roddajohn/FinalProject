@@ -6,7 +6,7 @@ public class Controller {
     private ArrayList<Player> players;
     private StockAPI api;
     private ArrayList<ClientHandlingThread> threads;
-    private final int port = 55562;
+    private final int port = 55564;
     private ServerSocket socket;
    
     public Controller() {
@@ -18,6 +18,16 @@ public class Controller {
 	loadAPIFromFile();
 	loadPlayersFromFile();
 	startServer();
+    }
+
+    private String printPlayers() {
+	String toReturn = "Players: ";
+	for (int i = 0; i < players.size(); i++) {
+	    toReturn += "Username: " + players.get(i).getUsername();
+	    toReturn += " Money: " + players.get(i).getMoney();
+	    toReturn += " Portfolio: " + players.get(i).printPortfolio();
+	}
+	return toReturn;
     }
 
     private void loadPlayersFromFile() {
@@ -34,6 +44,7 @@ public class Controller {
 		String[] input = line.split(",");
 		ArrayList<Stock> s = new ArrayList<Stock>();
 		ArrayList<Integer> j = new ArrayList<Integer>();
+		boolean a = false;
 		try {
 		    String[] stocks = input[3].split(";");
 		    String[] amts = input[4].split(";");
@@ -43,9 +54,16 @@ public class Controller {
 		    for (int i = 0; i < amts.length; i++) {
 			j.add(Integer.parseInt(amts[i]));
 		    }
+		    if (input[5].equals("true")) {
+			a = true;
+		    }
 		}
-		catch (ArrayIndexOutOfBoundsException e){}
-		players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j));
+		catch (ArrayIndexOutOfBoundsException e){
+		    if (input[3].equals("true")) {
+			a = true;
+		    }
+		}
+		players.add(new Player(input[0], input[1], Double.parseDouble(input[2]), s, j, a));
 	    }
 	    in.close();
 	}
@@ -195,6 +213,14 @@ public class Controller {
 	    }
 	}
 
+	public void setMoney(String username, double money) {
+	    for (Player p : players) {
+		if (p.getUsername().equals(username)) {
+		    p.setMoney(money);
+		}
+	    }
+	}
+
 	public void run() {
 	    try {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
@@ -219,32 +245,56 @@ public class Controller {
 			    }
 			    if (!isUsed) {
 				player = createUser(input[1], input[2]);
-				out.println("Success");
+				out.println("success");
 			    }
 			    else {
-				out.println("Error -- that username is already in use");
+				out.println("error");
 			    }
 			}
 			else if (input[0].equals("login")) {
 			    for (Player p : players) {
-				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {
-			
+				if (p.getUsername().equals(input[1]) && p.getPassword().equals(input[2])) {			
 				    player = p;
 				}
 			    }
 			    if (player != null) {
-				out.println("Success");
+				out.println("success");
 			    }
 			    else {
-				out.println("Try again -- login failed");
+				out.println("error");
 			    }
 			}
 			else {
-			    out.println("Error -- command not understood");
+			    out.println("error");
 			}
 		    }
 		    else {
-			if (input[0].equals("get")) {
+			if (player.isAdministrator() && input[0].equals("players")) {
+			    out.println(printPlayers());
+			}
+			else if (player.isAdministrator() && input[0].equals("player")) {
+			    try {
+				if (input[1].equals("set")) {
+				    if (input[2].equals("money")) {
+					setMoney(input[3], Double.parseDouble(input[4]));
+					out.println("success");
+				    }
+				    else {
+					out.println("error");
+				    }
+				}
+				else {
+				    out.println("error");
+				}
+			    }
+			    catch (ArrayIndexOutOfBoundsException e) {
+				out.println("error");
+			    }
+			    catch (NumberFormatException e) {
+				out.println("error");
+			    }
+			}
+			else if (input[0].equals("get")) {
 			    out.println(api.getStock(input[1]).toString(true));
 			}
 			else if (input[0].equals("money")) {
@@ -256,29 +306,32 @@ public class Controller {
 			else if (input[0].equals("buy")) {
 			    try {
 				if (buyStock(player, input[1], Integer.parseInt(input[2]))) {
-				    out.println("Success");
+				    out.println("success");
 				}
 				else {
-				    out.println("Error -- you don't have enough money");
+				    out.println("error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Error -- please don't forget parameters");
+				out.println("error");
 			    }
 			}
 			else if (input[0].equals("sell")) {
 			    try {
 				if (sellStock(player, input[1], Integer.parseInt(input[2]))) {
-				    out.println("Success");
+				    out.println("success");
 				    player.removeStocksWithZeros();
 				}
 				else {
-				    out.println("Error -- you don't have that many shares");
+				    out.println("error");
 				}
 			    }
 			    catch (ArrayIndexOutOfBoundsException e) {
-				out.println("Error -- please don't forget parameters");
+				out.println("error");
 			    }
+			}
+			else {
+			    out.println("error");
 			}
 		    }
 		}
