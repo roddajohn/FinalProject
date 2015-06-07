@@ -217,7 +217,7 @@ public class Stock {
     }
     public String toString(boolean a) {
 	String toReturn = "";
-	toReturn += name + "," + symbol + "," + currentValue + "," + closeLastDay + "," + openLastDay + "," + Volume + "," + DividendsandYield;
+	toReturn += name + "," + symbol + "," + currentPrice + "," + closeLastDay + "," + openLastDay + "," + Volume + "," + DividendsAndYields;
 
 	return toReturn;
     }

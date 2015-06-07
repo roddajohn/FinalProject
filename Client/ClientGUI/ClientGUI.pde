@@ -118,6 +118,6 @@ public void stop() {
 } 
 
 public void openMainWindow() {
-  MainFrame m = new MainFrame(client);
+  MainWindow m = new MainWindow(client);
   this.frame.hide();
 }

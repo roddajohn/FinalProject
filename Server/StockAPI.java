@@ -170,7 +170,7 @@ public class StockAPI {
 		url += stocks.get(i).getSymbol() + ",";
 	    }
 	    url = url.substring(0, url.length() - 1);
-	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + ENDOFURLQUOTE;
+	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + "p0" + "o0" + "v0" + "d0" + ENDOFURLQUOTE;
 	    try {
 		downloadFile(url, "quotes.csv");
 	    }
@@ -188,6 +188,30 @@ public class StockAPI {
 		    stocks.get(i).setName(parsed[0]);
 		    stocks.get(i).setSymbol(parsed[1]);
 		    stocks.get(i).setCurrentValue(Double.parseDouble(parsed[2]));
+		    if (parsed[3].equals("N/A")) {
+			stocks.get(i).setCloseLastDay(-1);
+		    }
+		    else {
+			stocks.get(i).setCloseLastDay(Double.parseDouble(parsed[3]));
+		    }
+		    if (parsed[4].equals("N/A")) {
+			stocks.get(i).setOpenLastDay(-1);
+		    }
+		    else {
+			stocks.get(i).setOpenLastDay(Double.parseDouble(parsed[4]));
+		    }
+		    if (parsed[5].equals("N/A")) {
+			stocks.get(i).setVolume(-1);
+		    }
+		    else {
+			stocks.get(i).setVolume(Double.parseDouble(parsed[5]));
+		    }
+		    if (parsed[6].equals("N/A")) {
+			stocks.get(i).setDividendsandYield(-1);
+		    }
+		    else {
+			stocks.get(i).setDividendsandYield(Double.parseDouble(parsed[6]));
+		    }
 		    i++;
 		}
 	    }
