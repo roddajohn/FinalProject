@@ -4,7 +4,11 @@ import java.util.*;
 
 public class MainWindow extends JFrame {
   private Client client;
+  private PApplet main;
 
+  public void quit() {
+    dispose();
+  }
 
   // STILL HAVE TO DEAL WITH CLOSING ISSUES, ie, ALL WINDOWS CLOSED BUT IT IS STILL RUNNING
 
@@ -14,7 +18,8 @@ public class MainWindow extends JFrame {
 
   private ControlP5 c;
 
-  public MainWindow(Client c) {
+  public MainWindow(Client c, PApplet m) {
+    main = m;
     client = c;
     setBounds(100, 75, 600, 400);
     this.setResizable(false);
@@ -31,13 +36,21 @@ public class MainWindow extends JFrame {
 
     private Textlabel name, symbol, current, open, close, volume, dividends;
 
+    private ChartAPI charts;
+
     private Toggle chart1, chart2, chart3;
 
     private int tabState, chartState;
 
+    public boolean chartsReady;
+
+    private ChartThread t;
+
     String stock;
 
     public void setup() {
+      chartsReady = false;
+      charts = new ChartAPI();
       tabState = 0;
       chartState = 0;
       stocks = new ArrayList<Stock>();
@@ -72,9 +85,18 @@ public class MainWindow extends JFrame {
       volume = c.addTextlabel("volumeT").setText("").setPosition(60, 220).moveTo("default").setColor(0);
       dividends = c.addTextlabel("dividendsT").setText("").setPosition(100, 245).moveTo("default").setColor(0);
 
-      chart1 = c.addToggle("chart1").setLabel("Chart 1").setPosition(181, 81).setWidth(139).setHeight(20).setId(6).moveTo("default").setValue(true).moveTo("default");
-      chart2 = c.addToggle("chart2").setLabel("Chart 2").setPosition(320, 81).setWidth(139).setHeight(20).setId(7).moveTo("default").setValue(false).moveTo("default");
-      chart3 = c.addToggle("chart3").setLabel("Chart 3").setPosition(459, 81).setWidth(140).setHeight(20).setId(8).moveTo("default").setValue(false).moveTo("default");;
+      chart1 = c.addToggle("chart1").setPosition(181, 81).setWidth(139).setHeight(20).setId(6).moveTo("default");
+      chart1.setBroadcast(false);
+      chart1.setValue(true);
+      chart1.setBroadcast(true);
+      chart2 = c.addToggle("chart2").setPosition(320, 81).setWidth(139).setHeight(20).setId(7).moveTo("default");
+      chart2.setBroadcast(false);
+      chart2.setValue(false);
+      chart2.setBroadcast(true);
+      chart3 = c.addToggle("chart3").setPosition(459, 81).setWidth(140).setHeight(20).setId(8).moveTo("default");
+      chart3.setBroadcast(false);
+      chart3.setValue(false);
+      chart3.setBroadcast(true);
 
       // Moving to correct tabs
 
@@ -99,12 +121,21 @@ public class MainWindow extends JFrame {
               dividends.setText("" + s.getDividendsandYield());
             }
           }
+          if (chartsReady) {
+            PImage img = loadImage(charts.getChartAddress(chartState + 1, stock));
+            image(img, 190, 110, 400, 250);
+          } else {
+            fill(0);
+            textSize(48);
+            text("Loading...", 300, 200);
+          }
         }
       }
     }
 
     public void updateStock(String st) {
       if (!stock.equals("")) {
+        chartsReady = false;
         boolean found = false;
         for (Stock s : stocks) {
           if (s.getSymbol().equals(st)) {
@@ -133,6 +164,8 @@ public class MainWindow extends JFrame {
             stocks.add(new Stock(parsed[0], parsed[1], Double.parseDouble(parsed[2]), Double.parseDouble(parsed[3]), Double.parseDouble(parsed[4]), Double.parseDouble(parsed[5]), Double.parseDouble(parsed[6])));
           }
         }
+        ChartThread t = new ChartThread(charts, st);
+        t.start();
       }
     }
 
@@ -163,12 +196,15 @@ public class MainWindow extends JFrame {
       case 1:
         tabState = 0;
         break;
+
       case 2:
         tabState = 1;
         break;
+
       case 3:
         tabState = 2;
         break;
+
       case 4:
         if (search.getText().equals("")) {
           errorMessage("You cannot leave the search field blank");
@@ -177,50 +213,95 @@ public class MainWindow extends JFrame {
           updateStock(stock);
         }
         break;
+
       case 5:
         updateStock(stock);
         break;
-      /*case 6:
+
+      case 6:
         if (chartState == 0) {
+          chart1.setBroadcast(false);
           chart1.setValue(true);
+          chart1.setBroadcast(true);
         } else {
+          chart1.setBroadcast(false);
+          chart2.setBroadcast(false);
+          chart3.setBroadcast(false);
           chart1.setValue(true);
           chart2.setValue(false);
           chart3.setValue(false);
+          chart1.setBroadcast(true);
+          chart2.setBroadcast(true);
+          chart3.setBroadcast(true);
           chartState = 0;
         }
+
         break;
       case 7:
         if (chartState == 1) {
+          chart2.setBroadcast(false);
           chart2.setValue(true);
+          chart2.setBroadcast(true);
         } else {
+          chart1.setBroadcast(false);
+          chart2.setBroadcast(false);
+          chart3.setBroadcast(false);
           chart1.setValue(false);
           chart2.setValue(true);
           chart3.setValue(false);
+          chart1.setBroadcast(true);
+          chart2.setBroadcast(true);
+          chart3.setBroadcast(true);
           chartState = 1;
         }
+
         break;
       case 8:
         if (chartState == 2) {
+          chart3.setBroadcast(false);
           chart3.setValue(true);
+          chart3.setBroadcast(true);
         } else {
+          chart1.setBroadcast(false);
+          chart2.setBroadcast(false);
+          chart3.setBroadcast(false);
           chart1.setValue(false);
           chart2.setValue(false);
           chart3.setValue(true);
+          chart1.setBroadcast(true);
+          chart2.setBroadcast(true);
+          chart3.setBroadcast(true);
           chartState = 2;
         }
-        break;*/
+        break;
       }
     }
 
     public void stop() {
       client.sendMessage("logout");
+      main.exit();
+      quit();
       exit();
     }
-  }
 
-  public void errorMessage(String e) {
-    JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
+
+    public void errorMessage(String e) {
+      JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private class ChartThread extends Thread {
+      ChartAPI charts;
+      String symbol;
+      public ChartThread(ChartAPI c, String s) {
+        symbol = s;
+        charts = c;
+      }
+
+      public void run() {
+        charts.loadCharts(symbol);
+        chartsReady = true;
+      }
+    }
   }
 }
 
