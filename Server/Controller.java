@@ -86,6 +86,7 @@ public class Controller {
 		String[] input = line.split(",");
 		ArrayList<Stock> s = new ArrayList<Stock>();
 		for (int i = 0; i < input.length; i++) {
+		    System.out.println(input[i]);
 		    s.add(new Stock(input[i]));
 		}
 		api.importStock(s);
@@ -296,12 +297,13 @@ public class Controller {
 			}
 			else if (input[0].equals("get")) {
 			    out.println(api.getStock(input[1]).toString(true));
+			    System.out.println(api.getStock(input[1]).toString(true));
 			}
 			else if (input[0].equals("money")) {
-			    out.println("Money: " + player.getMoney());
+			    out.println(player.getMoney());
 			}
 			else if (input[0].equals("portfolio")) {
-			    out.println("Portfolio: " + player.printPortfolio());
+			    out.println(player.printPortfolio());
 			}
 			else if (input[0].equals("buy")) {
 			    try {

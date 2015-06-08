@@ -1,4 +1,6 @@
- public class TradingAlgorithm{
+import java.util.*;
+
+public class TradingAlgorithm{
   
   private double currentValue, closeLastDay, openLastDay, BID, TargetEstimate, Beta, DaysRange, Week52Volume, Volume, AvgVolume, MarketCapitalization, EPS, DividendsandYield, P2SR,  FP2E, AEPS, QEPS, MeanReccomendations, PEGRatio;
  
@@ -7,8 +9,10 @@
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList<Stock> StocksConsidered;
-     private ArrayList<double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private ArrayList StocksConsidered;
+     private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
+    
+    private int Min, Max;
      
      private double MinIndex, MaxIndex;
      
@@ -48,9 +52,9 @@
      
      
      public void StockTrades(){
-<
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
+
+	 Min = (ExpectedDifference.get(0));
+	  Max = (ExpectedDifference.get(0));
 	 MinIndex = -1;
 	 MaxIndex = -1;
 	 

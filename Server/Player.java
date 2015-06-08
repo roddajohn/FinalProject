@@ -71,9 +71,14 @@ public class Player {
     public String printPortfolio() {
 	String toReturn = "";
 	for (int i = 0; i < stocks.size(); i++) {
-	    toReturn += stocks.get(i).getSymbol() + " # of Shares: " + amounts.get(i) + " Current Price: " + stocks.get(i).getCurrentValue() + ";";
+	    toReturn += stocks.get(i).getSymbol() + "," + amounts.get(i) + ";";
 	}
-	return toReturn;
+	try {
+	    return toReturn.substring(0, toReturn.length() - 1);
+	}
+	catch (Exception e) {
+	    return "";
+	}
     }
 
     public boolean isAdministrator() {
