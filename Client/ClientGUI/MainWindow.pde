@@ -155,7 +155,14 @@ public class MainWindow extends JFrame {
           }
           if (chartsReady) {
             PImage img = loadImage(charts.getChartAddress(chartState + 1, stock));
-            image(img, 190, 110, 400, 250);
+            try {
+              image(img, 190, 110, 400, 250);
+            }
+            catch (NullPointerException e) {
+              fill(0);
+              textSize(48);
+              text("ERROR", 300, 200);
+            }
             img = null;
           } else {
             fill(0);
