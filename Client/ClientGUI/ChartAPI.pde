@@ -23,9 +23,9 @@ public class ChartAPI {
       String url1 = BASEURL + symbol + TIMESPAN + ONEYEAR + TYPEOFGRAPH + SIZEOFGRAPH;
       String url2 = BASEURL + symbol + TIMESPAN + SIXMONTHS + TYPEOFGRAPH + SIZEOFGRAPH;
       String url3 = BASEURL + symbol + TIMESPAN + FIVEDAYS + TYPEOFGRAPH + SIZEOFGRAPH;
-      String save1 = symbol + "1.jpg";
-      String save2 = symbol + "2.jpg";
-      String save3 = symbol + "3.jpg";
+      String save1 = "\\data\\" + symbol + "1.jpg";
+      String save2 = "\\data\\" + symbol + "2.jpg";
+      String save3 = "\\data\\" + symbol + "3.jpg";
       saveImage(url1, save1);  
       saveImage(url2, save2);  
       saveImage(url3, save3);

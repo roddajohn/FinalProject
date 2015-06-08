@@ -32,9 +32,14 @@ public class MainWindow extends JFrame {
   private class secondApplet extends PApplet {
     private ArrayList<Stock> stocks;
 
-    private Textfield search;
+    private ArrayList<String> portfolio;
+    private ArrayList<Integer> amts;
 
-    private Textlabel name, symbol, current, open, close, volume, dividends;
+    private ArrayList<String> history;
+
+    private Textfield search, amount;
+
+    private Textlabel name, symbol, current, open, close, volume, dividends, moneyLabel;
 
     private ChartAPI charts;
 
@@ -46,22 +51,38 @@ public class MainWindow extends JFrame {
 
     private ChartThread t;
 
+    private double money;
+
+    ListBox l, h;
+
     String stock;
 
     public void setup() {
+      history = new ArrayList<String>();
+      money = 0.0;
       chartsReady = false;
       charts = new ChartAPI();
       tabState = 0;
       chartState = 0;
       stocks = new ArrayList<Stock>();
+      portfolio = new ArrayList<String>();
+      amts = new ArrayList<Integer>();
       stock = "";
 
       background(255);
       c = new ControlP5(this);
 
-      c.getTab("default").setLabel("Search").setWidth(600 / 3).setHeight(40).setId(1).activateEvent(true);
-      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 3).setHeight(40).setId(2).activateEvent(true);
-      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 3).setHeight(40).setId(3).activateEvent(true);
+      c.getTab("default").setLabel("Search").setWidth(600 / 4).setHeight(40).setId(1).activateEvent(true);
+      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 4).setHeight(40).setId(2).activateEvent(true);
+      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 4).setHeight(40).setId(3).activateEvent(true);
+      c.addTab("tab4").setLabel("History -- Temporary").setWidth(600 / 4).setHeight(40).setId(11).activateEvent(true);
+
+      // Setup of the PORTFOLIO tab
+
+      moneyLabel = c.addTextlabel("Money: ").setPosition(10, 50).moveTo("tab2").setColor(0);
+      l = c.addListBox("Portfolio").setPosition(10, 80).moveTo("tab2").setHeight(280).setWidth(100).setItemHeight(15).setBarHeight(10).setId(10).activateEvent(true); // 100 x 20
+
+      h = c.addListBox("History -- The Newest Transactions are at the Bottom").setPosition(10, 60).moveTo("tab4").setHeight(300).setWidth(565).setItemHeight(15).setBarHeight(10);
 
       // Setup of the SEARCH tab
 
@@ -69,6 +90,9 @@ public class MainWindow extends JFrame {
       search = c.addTextfield("searchField").setLabel("").setPosition(65, 50).moveTo("default").setWidth(100).moveTo("default").setFocus(true);
       c.addButton("searchButton").setLabel("Search").setPosition(180, 50).setSize(50, 20).setId(4).moveTo("default");
       c.addButton("refreshButton").setLabel("Refresh").setPosition(250, 50).setSize(50, 20).setId(5).moveTo("default");
+      c.addTextlabel("buyLabel").setText("Buy: ").setPosition(315, 55).moveTo("default").setColor(0);
+      amount = c.addTextfield("amountEnteringField").setLabel("").setPosition(350, 50).moveTo("default").setWidth(150).setFocus(false);
+      c.addButton("buyButton").setLabel("Buy").setPosition(525, 50).setId(9).moveTo("default").setSize(50, 20);
       c.addTextlabel("name").setText("Name: ").setPosition(15, 95).moveTo("default").setColor(0);
       c.addTextlabel("symbol").setText("Symbol: ").setPosition(15, 120).moveTo("default").setColor(0);
       c.addTextlabel("currentValue").setText("Current Price: ").setPosition(15, 145).moveTo("default").setColor(0);
@@ -122,14 +146,47 @@ public class MainWindow extends JFrame {
             }
           }
           if (chartsReady) {
+            println("Accessing a file at: " + charts.getChartAddress(chartState + 1, stock));
             PImage img = loadImage(charts.getChartAddress(chartState + 1, stock));
             image(img, 190, 110, 400, 250);
+            img = null;
           } else {
             fill(0);
             textSize(48);
             text("Loading...", 300, 200);
           }
         }
+      } else if (tabState == 1) {
+        l.clear();
+        for (int i = 0; i < portfolio.size (); i++) {
+          l.addItem(portfolio.get(i) + " " + amts.get(i), i).setId(100 + i);
+        }
+
+        line(120, 40, 120, 400);
+
+        moneyLabel.setText("Money: " + money);
+      } else if (tabState == 2) {
+      } else if (tabState == 3) {
+        h.clear();
+        for (int i = 0; i < history.size (); i++) {
+          h.addItem(history.get(i), i);
+        }
+      }
+    }
+
+    public void updateMoney() {
+      money = Double.parseDouble(client.recieveInformation("money"));
+    }
+
+    public void updatePortfolio() {
+      portfolio.clear();
+      amts.clear();
+      String information = client.recieveInformation("portfolio");
+      String[] parsed = information.split(";");
+      for (int i = 0; i < parsed.length; i++) {
+        String[] a = parsed[i].split(",");
+        portfolio.add(a[0]);
+        amts.add(Integer.parseInt(a[1]));
       }
     }
 
@@ -192,6 +249,10 @@ public class MainWindow extends JFrame {
     }
 
     public void controlEvent(ControlEvent e) {
+      println(e.getId());
+      if (e.getId() > 99) {
+        println(portfolio.get(e.getId() - 100));
+      }
       switch(e.getId()) {
       case 1:
         tabState = 0;
@@ -199,10 +260,16 @@ public class MainWindow extends JFrame {
 
       case 2:
         tabState = 1;
+        updatePortfolio();
+        updateMoney();
         break;
 
       case 3:
         tabState = 2;
+        break;
+
+      case 11:
+        tabState = 3;
         break;
 
       case 4:
@@ -274,6 +341,28 @@ public class MainWindow extends JFrame {
           chartState = 2;
         }
         break;
+
+      case 9:
+        if (!stock.equals("") && !amount.getText().equals("")) {
+          try {
+            int shares = Integer.parseInt(amount.getText());
+            if (client.sendMessage("buy " + stock + " " + shares)) {
+              message("Success");
+              history.add("Bought " + shares + " shares of " + stock);
+            } else {
+              errorMessage("You don't have enough money, the purchase did not go through");
+            }
+          }
+          catch (NumberFormatException a) {
+            errorMessage("Please enter a number into the amount field");
+          }
+        } else {
+          errorMessage("Please enter something into both text fields, and make sure that you have already searched the stock.");
+        }
+        amount.setText("");
+        break;
+      case 10:
+        println(e.group().value());
       }
     }
 
@@ -287,6 +376,10 @@ public class MainWindow extends JFrame {
 
     public void errorMessage(String e) {
       JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void message(String e) {
+      JOptionPane.showMessageDialog(new JFrame(), e);
     }
 
     private class ChartThread extends Thread {
