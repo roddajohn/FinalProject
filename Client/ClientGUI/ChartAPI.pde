@@ -14,7 +14,7 @@ public class ChartAPI {
   private final int BUFFER_SIZE = 4096;
 
   public String getChartAddress(int chartNumber, String symbol) {
-    return symbol + ("" + chartNumber) + ".jpg";
+    return "C:\\Users\\Rodda\\My Documents\\coding\\FinalProject\\Client\\ClientGUI\\data\\" + symbol + ("" + chartNumber) + ".jpg";
   }
 
   public boolean loadCharts(String symbol) {
