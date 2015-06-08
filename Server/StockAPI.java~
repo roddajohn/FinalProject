@@ -163,8 +163,6 @@ public class StockAPI {
     }
 
     private void updateStocks() {
-	System.out.println("In updateStock()");
-
 	String url = "";
 	if (stocks.size() != 0) {
 	    url += BASEQUOTEURL;

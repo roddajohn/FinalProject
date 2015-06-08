@@ -1,4 +1,6 @@
- public class TradingAlgorithm{
+import java.util.*;
+
+public class TradingAlgorithm{
   
   private double currentValue, closeLastDay, openLastDay, BID, TargetEstimate, Beta, DaysRange, Week52Volume, Volume, AvgVolume, MarketCapitalization, EPS, DividendsandYield, P2SR,  FP2E, AEPS, QEPS, MeanReccomendations, PEGRatio;
  
@@ -7,8 +9,10 @@
      
       private double WcurrentValue, WcloseLastDay, WopenLastDay, WBID, WTargetEstimate, WBeta, WDaysRange, WWeek52Volume, WVolume, WAvgVolume, WMarketCapitalization, WEPS, WDividendsandYield, WP2SR,  WFP2E, WAEPS, WQEPS, WMeanReccomendations, WPEGRatio;
         
-     private ArrayList<Stock> StocksConsidered;
-     private ArrayList<double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
+     private ArrayList StocksConsidered;
+     private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
+    
+    private int Min, Max;
      
      private double MinIndex, MaxIndex;
      
@@ -21,27 +25,9 @@
          double SharesPerSecondActual;
         
          while (TF) {
-             
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> ben
-              StockTrades();
-                          
-            SharesPerSecondActual = (StocksSharesPerMinute.get(MaxIndex)  +  StocksSharesPerMinute.get(MinIndex)/60);  
-             player1.buyStock((StocksConsidered.get(MinIndex).getSymbol()), SharesPerSecondActual);
-             player1.sellStock(StocksConsidered.get(MinIndex).getSymbol(), SharesPerSecondActual);
-             
-            
+  
          
-         wait(1000);
-         }  
-<<<<<<< HEAD
-
-=======
-         
-=======
+     
 	     StocksConsidered = player1.getStocks();
 	     StocksSharesPerMinute = player1.getStockSharesPerMinute();
 	     ExpectedDifference = player1.getExpectedDifference();
@@ -58,56 +44,31 @@
 	     wait(1000);
 	 }  
 	 
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
+
      }
->>>>>>> ben
+
      
      //Array list of expected diffrences in the player class
      
      
      public void StockTrades(){
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> ben
-         int Min = (ExpectedDifference.get(0));
-         int Max = (ExpectedDifference.get(0));
-         MinIndex = -1;
-         MaxIndex = -1;
-         
-         for (int i = 0; i < StocksConsidered.size(); i++){
-             if (ExpectedDifference.get(i) < Min){
-                 MinStock = StocksConsidered.get(i);
-<<<<<<< HEAD
-=======
-=======
-	 int Min = (ExpectedDifference.get(0));
-	 int Max = (ExpectedDifference.get(0));
+	 Min = (ExpectedDifference.get(0));
+	  Max = (ExpectedDifference.get(0));
 	 MinIndex = -1;
 	 MaxIndex = -1;
 	 
 	 for (int i = 0; i < StocksConsidered.size(); i++){
 	     if (ExpectedDifference.get(i) < Min){
 		 MinStock = StocksConsidered.get(i);
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
->>>>>>> ben
                  MinIndex = i;
                  
                  
              }
-<<<<<<< HEAD
-            
+
                if (ExpectedDifference.get(i) > Max){
 
-=======
-             
-<<<<<<< HEAD
-               if (ExpectedDifference.get(i) > Max){
-=======
-	     if (tExpectedDifference.get(i) > Max){
->>>>>>> 7cbf36fa7a0e3070dc38cd21d751cdc277039e51
->>>>>>> ben
+
                  MaxStock = ExpectedDifference.get(i);
                  MaxIndex = i;
                  
