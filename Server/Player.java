@@ -3,7 +3,7 @@ import java.util.*;
 public class Player {
     private ArrayList<Stock> stocks;
     private ArrayList<Integer> amounts;
-    private ArrayList StocksSharesPerMinute, ExpectedDifference, Wieghts;
+    private ArrayList<Double> StocksSharesPerMinute, ExpectedDifference, Wieghts;
     private double money;
     private String username;
     private String password;
@@ -41,24 +41,46 @@ public class Player {
         
     }
     
-    public ArrayList getStocksSharesPerMinute(){
+    public ArrayList<Double> getStocksSharesPerMinute(){
         return StocksSharesPerMinute;
         
         
     }
      
-    public ArrayList getExpectedDifference(){
+    public ArrayList<Double> getExpectedDifference(){
         return ExpectedDifference;
         
         
     }
     
      
-    public ArrayList getWieghts(){
+    public ArrayList<Double> getWieghts(){
         return Wieghts;
         
         
     }
+    
+    public void setStocks(ArrayList<Stocks> s1){
+        stocks= s1;
+    }
+    
+    
+    public void setExpectedDifference(ArrayList<Double> s1){
+        ExpectedDiference = s1;
+    }
+    
+    
+    public void setStocksSharesPerMinute(ArrayList<Double> s1){
+        StocksSHaresPerMinute = s1;
+    }
+	
+  
+    public void setWieghts(ArrayList<Double> s1){
+        Wieghts = s1;
+    }    
+    
+    
+    
 
     
     
