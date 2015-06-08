@@ -86,6 +86,7 @@ public class Controller {
 		String[] input = line.split(",");
 		ArrayList<Stock> s = new ArrayList<Stock>();
 		for (int i = 0; i < input.length; i++) {
+		    System.out.println(input[i]);
 		    s.add(new Stock(input[i]));
 		}
 		api.importStock(s);

@@ -191,7 +191,16 @@ public class StockAPI {
 		    String[] parsed = line.split(",");
 		    stocks.get(i).setName(parsed[0]);
 		    stocks.get(i).setSymbol(parsed[1]);
-		    stocks.get(i).setCurrentValue(Double.parseDouble(parsed[2]));
+		    try {
+			stocks.get(i).setCurrentValue(Double.parseDouble(parsed[2]));
+		    }
+		    catch (NumberFormatException e) {
+			line = line.substring(0, line.indexOf(",")) + line.substring(line.indexOf(",") + 1);
+			parsed = line.split(",");
+			stocks.get(i).setName(parsed[0]);
+			stocks.get(i).setSymbol(parsed[1]);
+			stocks.get(i).setCurrentValue(Double.parseDouble(parsed[2]));
+		    }
 		    if (parsed[3].equals("N/A")) {
 			stocks.get(i).setCloseLastDay(-1);
 		    }

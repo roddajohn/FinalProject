@@ -299,10 +299,10 @@ public class Controller {
 			    System.out.println(api.getStock(input[1]).toString(true));
 			}
 			else if (input[0].equals("money")) {
-			    out.println("Money: " + player.getMoney());
+			    out.println(player.getMoney());
 			}
 			else if (input[0].equals("portfolio")) {
-			    out.println("Portfolio: " + player.printPortfolio());
+			    out.println(player.printPortfolio());
 			}
 			else if (input[0].equals("buy")) {
 			    try {

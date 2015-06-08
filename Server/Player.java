@@ -73,7 +73,12 @@ public class Player {
 	for (int i = 0; i < stocks.size(); i++) {
 	    toReturn += stocks.get(i).getSymbol() + "," + amounts.get(i) + ";";
 	}
-	return toReturn.substring(0, toReturn.length() - 1);
+	try {
+	    return toReturn.substring(0, toReturn.length() - 1);
+	}
+	catch (Exception e) {
+	    return "";
+	}
     }
 
     public boolean isAdministrator() {
