@@ -3,13 +3,8 @@ import java.io.*;
 import java.util.*;
 
 public class Client {
-<<<<<<< HEAD
     private final String serverAddress = "127.0.0.1";
     private final int port = 55564;
-=======
-  private final String serverAddress = "127.0.0.1";
-  private final int port = 55564;
->>>>>>> e90ded791944ef54b25878faaf94bc5e20478f41
 
   private PrintWriter out;
   private BufferedReader in;

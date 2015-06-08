@@ -1,26 +1,14 @@
 import controlP5.*;
 import javax.swing.*;
-<<<<<<< HEAD
 
 public class MainFrame extends JFrame {
   private final int w = 600;
   private final int h = 400;  
-  
+
   private Client client; 
   private ControlP5 c;
- 
+
   // STILL HAVE TO DEAL WITH CLOSING ISSUES, ie, ALL WINDOWS CLOSED BUT IT IS STILL RUNNING
-  
-  public MainFrame(Client c) {
-    client = c;
-    setBounds(0, 0, w, h);
-=======
-import java.util.*;
-
-public class MainWindow extends JFrame {
-  private Client client;
-  private PApplet main;
-
   public void quit() {
     dispose();
   }
@@ -37,7 +25,7 @@ public class MainWindow extends JFrame {
     main = m;
     client = c;
     setBounds(100, 75, 600, 400);
->>>>>>> e90ded791944ef54b25878faaf94bc5e20478f41
+
     this.setResizable(false);
     PApplet p = new secondApplet();
     add(p);
@@ -74,17 +62,14 @@ public class MainWindow extends JFrame {
     String stock;
 
     public void setup() {
-<<<<<<< HEAD
+
       background(255); 
       c = new ControlP5(this);
-      
+
       c.getTab("default").activateEvent(true).setLabel("Search for Stock").setId(1).setWidth(w / 3).setHeight(20);
       c.addTab("portfolio").activateEvent(true).setLabel("View your Portfolio").setId(2).setWidth(w / 3).setHeight(20);
       c.addTab("algorithm").activateEvent(true).setLabel("View your Automated Trading Settings").setWidth(w / 3).setHeight(20);
-      
-      
-      
-=======
+
       history = new ArrayList<String>();
       money = 0.0;
       chartsReady = false;
@@ -159,7 +144,6 @@ public class MainWindow extends JFrame {
       c.getController("search").moveTo("default");
       c.getController("searchField").moveTo("default");
       c.getController("searchButton").moveTo("default");
->>>>>>> e90ded791944ef54b25878faaf94bc5e20478f41
     }
     public void draw() {
       background(255);
@@ -488,16 +472,7 @@ public class MainWindow extends JFrame {
         updateMoney();
         break;
       }
-    }
-<<<<<<< HEAD
-    
-    
-    public void stop() {
-      client.sendMessage("logout");
-      exit(); 
-    }
-  }  
-=======
+    } 
 
 
     public void stop() {
@@ -530,6 +505,5 @@ public class MainWindow extends JFrame {
       }
     }
   }
->>>>>>> e90ded791944ef54b25878faaf94bc5e20478f41
 }
 
