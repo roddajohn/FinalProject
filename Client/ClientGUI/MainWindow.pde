@@ -89,6 +89,8 @@ public class MainWindow extends JFrame {
 
       h = c.addListBox("History -- The Newest Transactions are at the Bottom").setPosition(10, 60).moveTo("tab4").setHeight(300).setWidth(565).setItemHeight(15).setBarHeight(10);
 
+      // SETUP OF ALGORITHM
+      
       // Setup of the SEARCH tab
 
       c.addTextlabel("search").setText("Search: ").setLabel("").setPosition(15, 55).setColor(0).moveTo("default");
