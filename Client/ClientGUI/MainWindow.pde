@@ -411,13 +411,7 @@ public class MainWindow extends JFrame {
           try {
             int shares = Integer.parseInt(amount.getText());
             if (client.sendMessage("buy " + stock + " " + shares)) {
-              double d = 0.0;
-              updateStock(stock);
-              for (Stock s : stocks) {
-                if (s.getSymbol().equals(stock)) {
-                  d = s.getCurrentValue();
-                }
-              }
+              double d = Double.parseDouble(client.recieveInformation("get " + stock).split(",")[2]);
               message("Success -- you just bought " + shares + " shares of " + stock + " at " + d + " a share!");
               history.add("Bought " + shares + " shares of " + stock);
             } else {
@@ -445,13 +439,7 @@ public class MainWindow extends JFrame {
           try {
             int shares = Integer.parseInt(sellAmount.getText());
             if (client.sendMessage("sell " + stock + " " + shares)) {
-              double d = 0.0;
-              updateStock(stock);
-              for (Stock s : stocks) {
-                if (s.getSymbol().equals(stock)) {
-                  d = s.getCurrentValue();
-                }
-              }
+              double d = Double.parseDouble(client.recieveInformation("get " + stock).split(",")[2]);
               message("Success -- you just sold " + shares + " shares of " + stock + " at " + d + " a share!");
               history.add("Sold " + shares + " shares of " + stock);
             } else {

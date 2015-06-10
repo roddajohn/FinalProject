@@ -341,7 +341,7 @@ public class Controller {
 	       out.close();
 	       in.close();
             }
-            catch (IOException e) {
+	    catch (IOException e) {
 	    }
 	}
 	// This is a class that will be created to deal with any client who has connected, the constructor will have a player passed in so that it know how do deal with that player.
