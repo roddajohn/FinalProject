@@ -173,7 +173,7 @@ public class StockAPI {
 	    }
 	    System.out.println("URL = " + url);
 	    url = url.substring(0, url.length() - 1);
-	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + "p0" + "o0" + "v0" + "d0" + ENDOFURLQUOTE;
+	    url += USEPROPERTIES + NAMEPROPERTY + SYMBOLPROPERTY + LATESTVALUEPROPERTY + "p" + "o" + "v" + "d" + ENDOFURLQUOTE;
 	    try {
 		downloadFile(url, "quotes.csv");
 	    }

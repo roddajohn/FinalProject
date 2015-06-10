@@ -87,7 +87,7 @@ public class MainWindow extends JFrame {
 
       // HISTORY TAB SETUP
 
-      h = c.addListBox("History -- The Newest Transactions are at the Bottom").setPosition(10, 60).moveTo("tab4").setHeight(300).setWidth(565).setItemHeight(15).setBarHeight(10);
+      h = c.addListBox("History -- The Newest Transactions are at the Bottom").setPosition(10, 60).moveTo("tab4").actAsPulldownMenu(false).setHeight(300).setWidth(565).disableCollapse().setItemHeight(15).setBarHeight(10);
 
       // SETUP OF ALGORITHM
       
@@ -104,7 +104,7 @@ public class MainWindow extends JFrame {
       c.addTextlabel("symbol").setText("Symbol: ").setPosition(15, 120).moveTo("default").setColor(0);
       c.addTextlabel("currentValue").setText("Current Price: ").setPosition(15, 145).moveTo("default").setColor(0);
       c.addTextlabel("closeLastDay").setText("Close Last Day: ").setPosition(15, 170).moveTo("default").setColor(0);
-      c.addTextlabel("open").setText("Open: ").setPosition(15, 195).moveTo("default").setColor(0);
+      c.addTextlabel("open").setText("Open Last Day: ").setPosition(15, 195).moveTo("default").setColor(0);
       c.addTextlabel("volume").setText("Volume: ").setPosition(15, 220).moveTo("default").setColor(0);
       c.addTextlabel("dividendsandyield").setText("Dividends and Yield: ").setPosition(15, 245).moveTo("default").setColor(0);
 
@@ -112,7 +112,7 @@ public class MainWindow extends JFrame {
       symbol = c.addTextlabel("symbolT").setText("").setPosition(55, 120).moveTo("default").setColor(0);
       current = c.addTextlabel("currentT").setText("").setPosition(75, 145).moveTo("default").setColor(0);
       close = c.addTextlabel("closeT").setText("").setPosition(85, 170).moveTo("default").setColor(0);
-      open = c.addTextlabel("openT").setText("").setPosition(45, 195).moveTo("default").setColor(0);
+      open = c.addTextlabel("openT").setText("").setPosition(85, 195).moveTo("default").setColor(0);
       volume = c.addTextlabel("volumeT").setText("").setPosition(60, 220).moveTo("default").setColor(0);
       dividends = c.addTextlabel("dividendsT").setText("").setPosition(100, 245).moveTo("default").setColor(0);
 
