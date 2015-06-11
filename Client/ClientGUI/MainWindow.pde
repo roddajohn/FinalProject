@@ -1,11 +1,15 @@
 import controlP5.*;
 import javax.swing.*;
-import java.util.*;
 
 public class MainWindow extends JFrame {
-  private Client client;
+  private final int w = 600;
+  private final int h = 400;  
+
+  private Client client; 
+  private ControlP5 c;
   private PApplet main;
 
+  // STILL HAVE TO DEAL WITH CLOSING ISSUES, ie, ALL WINDOWS CLOSED BUT IT IS STILL RUNNING
   public void quit() {
     dispose();
   }
@@ -16,12 +20,11 @@ public class MainWindow extends JFrame {
 
   // Fix issues that occur when you search for a stock that doesn't exist...
 
-  private ControlP5 c;
-
   public MainWindow(Client c, PApplet m) {
     main = m;
     client = c;
     setBounds(100, 75, 600, 400);
+
     this.setResizable(false);
     PApplet p = new secondApplet();
     add(p);
@@ -32,9 +35,14 @@ public class MainWindow extends JFrame {
   private class secondApplet extends PApplet {
     private ArrayList<Stock> stocks;
 
-    private Textfield search;
+    private ArrayList<String> portfolio;
+    private ArrayList<Integer> amts;
 
-    private Textlabel name, symbol, current, open, close, volume, dividends;
+    private ArrayList<String> history;
+
+    private Textfield search, amount, sellAmount;
+
+    private Textlabel name, symbol, current, open, close, volume, dividends, moneyLabel;
 
     private ChartAPI charts;
 
@@ -46,46 +54,69 @@ public class MainWindow extends JFrame {
 
     private ChartThread t;
 
+    private double money;
+
+    ListBox l, h;
+
     String stock;
 
     public void setup() {
+
+      background(255); 
+      c = new ControlP5(this);
+
+    
+       
+     
+      history = new ArrayList<String>();
+      money = 0.0;
       chartsReady = false;
       charts = new ChartAPI();
       tabState = 0;
       chartState = 0;
       stocks = new ArrayList<Stock>();
+      portfolio = new ArrayList<String>();
+      amts = new ArrayList<Integer>();
       stock = "";
 
       background(255);
       c = new ControlP5(this);
 
-      c.getTab("default").setLabel("Search").setWidth(600 / 3).setHeight(40).setId(1).activateEvent(true);
-      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 3).setHeight(40).setId(2).activateEvent(true);
-      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 3).setHeight(40).setId(3).activateEvent(true);
-      c.addTab("tab5").setLabel("Sentiment Analyzer").setWidth(600 / 3).setHeight(40).setId(4).activateEvent(true);
+      c.getTab("default").setLabel("Search").setWidth(600 / 4).setHeight(40).setId(1).activateEvent(true);
+      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 4).setHeight(40).setId(2).activateEvent(true);
+      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 4).setHeight(40).setId(3).activateEvent(true);
+      c.addTab("tab4").setLabel("History -- Temporary").setWidth(600 / 4).setHeight(40).setId(11).activateEvent(true);
+c.addTab("tab5").setLabel("Sentiment Analyzer").setWidth(600 / 3).setHeight(40).setId(4).activateEvent(true);
+      // Setup of the PORTFOLIO tab
+
+      moneyLabel = c.addTextlabel("Money: ").setPosition(10, 50).moveTo("tab2").setColor(0);
+      l = c.addListBox("Portfolio").setPosition(10, 80).moveTo("tab2").setHeight(280).setWidth(100).setItemHeight(15).setBarHeight(10).setId(10).actAsPulldownMenu(false).activateEvent(true).disableCollapse(); // 100 x 20
+      c.addTextlabel("sellLabel").setText("Sell: ").setPosition(130, 340).moveTo("tab2").setColor(0);
+      sellAmount = c.addTextfield("sellAmount").setPosition(160, 335).setWidth(100).setHeight(20).moveTo("tab2");
+      c.addButton("sellButton").setId(12).setPosition(280, 335).setSize(50, 20).moveTo("tab2").setLabel("Sell");
+
+ // Set up the sliders for the sentiment analyzer
       
-      // Set up the sliders for the sentiment analyzer
-      
-      c.addSlider("Emotion 1").setPosition(200,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 2").setPosition(200,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 3").setPosition(200,250).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 4").setPosition(200,300).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 6").setPosition(200,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 7").setPosition(200,400).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
       
       
       
       //Set up the sliders
       
-     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
+     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
      c.addSlider("AvgVolume").setPosition(100,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
       c.addSlider("MarketCapitalization").setPosition(100,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
       c.addSlider("EPS").setPosition(100,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
@@ -106,37 +137,45 @@ public class MainWindow extends JFrame {
       
       //set up the slider wieghts
       
-      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
       
-      
-      
+
+
+
+
+
+      // HISTORY TAB SETUP
+
+      h = c.addListBox("History -- The Newest Transactions are at the Bottom").setPosition(10, 60).moveTo("tab4").setHeight(300).setWidth(565).setItemHeight(15).setBarHeight(10);
+
       // Setup of the SEARCH tab
-      
-      
 
       c.addTextlabel("search").setText("Search: ").setLabel("").setPosition(15, 55).setColor(0).moveTo("default");
       search = c.addTextfield("searchField").setLabel("").setPosition(65, 50).moveTo("default").setWidth(100).moveTo("default").setFocus(true);
       c.addButton("searchButton").setLabel("Search").setPosition(180, 50).setSize(50, 20).setId(4).moveTo("default");
       c.addButton("refreshButton").setLabel("Refresh").setPosition(250, 50).setSize(50, 20).setId(5).moveTo("default");
+      c.addTextlabel("buyLabel").setText("Buy: ").setPosition(315, 55).moveTo("default").setColor(0);
+      amount = c.addTextfield("amountEnteringField").setLabel("").setPosition(350, 50).moveTo("default").setWidth(150).setFocus(false);
+      c.addButton("buyButton").setLabel("Buy").setPosition(525, 50).setId(9).moveTo("default").setSize(50, 20);
       c.addTextlabel("name").setText("Name: ").setPosition(15, 95).moveTo("default").setColor(0);
       c.addTextlabel("symbol").setText("Symbol: ").setPosition(15, 120).moveTo("default").setColor(0);
       c.addTextlabel("currentValue").setText("Current Price: ").setPosition(15, 145).moveTo("default").setColor(0);
@@ -181,6 +220,9 @@ public class MainWindow extends JFrame {
           for (Stock s : stocks) {
             if (s.getSymbol().equals(stock)) {
               name.setText(s.getName());
+              if (s.getName().length() > 25) {
+                name.setText(s.getName().substring(0, 25));
+              }
               symbol.setText(s.getSymbol());
               current.setText("" + s.getCurrentValue());
               close.setText("" + s.getCloseLastDay());
@@ -192,13 +234,64 @@ public class MainWindow extends JFrame {
           if (chartsReady) {
             PImage img = loadImage(charts.getChartAddress(chartState + 1, stock));
             image(img, 190, 110, 400, 250);
+            img = null;
           } else {
             fill(0);
             textSize(48);
             text("Loading...", 300, 200);
           }
         }
+      } else if (tabState == 1) {
+        if (chartsReady) {
+          PImage img = loadImage(charts.getChartAddress(1, stock));
+          image(img, 130, 50, 460, 275);
+          img = null;
+        } else if (!stock.equals("")) {
+          fill(0);
+          textSize(48);
+          text("Loading...", 300, 200);
+        }
+
+        line(120, 40, 120, 400);
+        line(120, 320, 600, 320);
+
+        moneyLabel.setText("Money: " + (int)money);
+      } else if (tabState == 2) {
+      } else if (tabState == 3) {
+        h.clear();
+        for (int i = 0; i < history.size (); i++) {
+          h.addItem(history.get(i), i);
+        }
       }
+    }
+
+    public void updateMoney() {
+      money = Double.parseDouble(client.recieveInformation("money"));
+    }
+
+    public void updatePortfolio() {
+      portfolio.clear();
+      amts.clear();
+      String information = client.recieveInformation("portfolio");
+      println("Recieved this information: " + information);
+      if (!information.equals("")) {
+        println("inside");
+        String[] parsed = information.split(";");
+        for (int i = 0; i < parsed.length; i++) {
+          String[] a = parsed[i].split(",");
+          println("have: " + a[0]);
+          portfolio.add(a[0]);
+          amts.add(Integer.parseInt(a[1]));
+        }
+      }
+      l.clear();
+      for (int i = 0; i < portfolio.size (); i++) {
+        l.addItem(portfolio.get(i) + " " + amts.get(i), i);
+      }
+      l.updateListBoxItems();
+      l.updateEvents();
+      l.update();
+      println("Got through update portfolio");
     }
 
     public void updateStock(String st) {
@@ -256,21 +349,60 @@ public class MainWindow extends JFrame {
             search.setFocus(true);
           }
         }
+      } else if (tabState == 2) {
+        if (keyCode == 10) {
+          if (!stock.equals("") && !sellAmount.getText().equals("")) {
+            try {
+              int shares = Integer.parseInt(sellAmount.getText());
+              if (client.sendMessage("sell " + stock + " " + shares)) {
+                double d = 0.0;
+                updateStock(stock);
+                for (Stock s : stocks) {
+                  if (s.getSymbol().equals(stock)) {
+                    d = s.getCurrentValue();
+                  }
+                }
+                message("Success -- you just sold " + shares + " shares of " + stock + " at " + d + " a share!");
+                history.add("Sold " + shares + " shares of " + stock);
+              } else {
+                errorMessage("You don't have that many shares");
+              }
+            }
+            catch (NumberFormatException a) {
+              errorMessage("Please enter a number into the amount field");
+            }
+          } else {
+            errorMessage("Ensure that you have entered an amount and that you have selected the stock you wish to sell.");
+          }
+          amount.setText("");
+          updatePortfolio();
+          updateMoney();
+        }
       }
     }
 
     public void controlEvent(ControlEvent e) {
       switch(e.getId()) {
       case 1:
+        stock = "";
+        chartsReady = false;
         tabState = 0;
         break;
 
       case 2:
         tabState = 1;
+        updatePortfolio();
+        updateMoney();
+        chartsReady = false;
+        stock = "";
         break;
 
       case 3:
         tabState = 2;
+        break;
+
+      case 11:
+        tabState = 3;
         break;
 
       case 4:
@@ -342,8 +474,72 @@ public class MainWindow extends JFrame {
           chartState = 2;
         }
         break;
+
+      case 9:
+        if (!stock.equals("") && !amount.getText().equals("")) {
+          try {
+            int shares = Integer.parseInt(amount.getText());
+            if (client.sendMessage("buy " + stock + " " + shares)) {
+              double d = 0.0;
+              updateStock(stock);
+              for (Stock s : stocks) {
+                if (s.getSymbol().equals(stock)) {
+                  d = s.getCurrentValue();
+                }
+              }
+              message("Success -- you just bought " + shares + " shares of " + stock + " at " + d + " a share!");
+              history.add("Bought " + shares + " shares of " + stock);
+            } else {
+              errorMessage("You don't have enough money, the purchase did not go through");
+            }
+          }
+          catch (NumberFormatException a) {
+            errorMessage("Please enter a number into the amount field");
+          }
+        } else {
+          errorMessage("Please enter something into both text fields, and make sure that you have already searched the stock.");
+        }
+        sellAmount.setText("");
+        break;
+
+      case 10:
+        stock = portfolio.get((int)e.group().value());
+        chartsReady = false;
+        t = new ChartThread(charts, stock);
+        t.start();
+        break;
+
+      case 12:
+        if (!stock.equals("") && !sellAmount.getText().equals("")) {
+          try {
+            int shares = Integer.parseInt(sellAmount.getText());
+            if (client.sendMessage("sell " + stock + " " + shares)) {
+              double d = 0.0;
+              updateStock(stock);
+              for (Stock s : stocks) {
+                if (s.getSymbol().equals(stock)) {
+                  d = s.getCurrentValue();
+                }
+              }
+              message("Success -- you just sold " + shares + " shares of " + stock + " at " + d + " a share!");
+              history.add("Sold " + shares + " shares of " + stock);
+            } else {
+              errorMessage("You don't have that many shares");
+            }
+          }
+          catch (NumberFormatException a) {
+            errorMessage("Please enter a number into the amount field");
+          }
+        } else {
+          errorMessage("Ensure that you have entered an amount and that you have selected the stock you wish to sell.");
+        }
+        amount.setText("");
+        updatePortfolio();
+        updateMoney();
+        break;
       }
-    }
+    } 
+
 
     public void stop() {
       client.sendMessage("logout");
@@ -355,6 +551,10 @@ public class MainWindow extends JFrame {
 
     public void errorMessage(String e) {
       JOptionPane.showMessageDialog(new JFrame(), e, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void message(String e) {
+      JOptionPane.showMessageDialog(new JFrame(), e);
     }
 
     private class ChartThread extends Thread {
