@@ -97,37 +97,37 @@ c.addTab("tab5").setLabel("Sentiment Analyzer").setWidth(600 / 3).setHeight(40).
 
  // Set up the sliders for the sentiment analyzer
       
-      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
       
       
       
       //Set up the sliders
       
-     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("AvgVolume").setPosition(100,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("MarketCapitalization").setPosition(100,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("EPS").setPosition(100,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("DividendsandYield").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("P2SR").setPosition(100,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("FP2E").setPosition(100,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("AEPS").setPosition(100,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("QEPS").setPosition(100,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("MeanReccomendations").setPosition(100,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("PEGRatio").setPosition(100,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("currentValue").setPosition(100,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
+     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("AvgVolume").setPosition(100,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("MarketCapitalization").setPosition(100,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("EPS").setPosition(100,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("DividendsandYield").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("P2SR").setPosition(100,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("FP2E").setPosition(100,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("AEPS").setPosition(100,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("QEPS").setPosition(100,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("MeanReccomendations").setPosition(100,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("PEGRatio").setPosition(100,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("currentValue").setPosition(100,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
       
       // Set up the slider ranges
       
@@ -137,26 +137,26 @@ c.addTab("tab5").setLabel("Sentiment Analyzer").setWidth(600 / 3).setHeight(40).
       
       //set up the slider wieghts
       
-      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
       
 
 
