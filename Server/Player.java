@@ -60,18 +60,18 @@ public class Player {
         
     }
     
-    public void setStocks(ArrayList<Stocks> s1){
+    public void setStocks(ArrayList<Stock> s1){
         stocks= s1;
     }
     
     
     public void setExpectedDifference(ArrayList<Double> s1){
-        ExpectedDiference = s1;
+        ExpectedDifference = s1;
     }
     
     
     public void setStocksSharesPerMinute(ArrayList<Double> s1){
-        StocksSHaresPerMinute = s1;
+        StocksSharesPerMinute = s1;
     }
 	
   
