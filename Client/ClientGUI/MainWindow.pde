@@ -65,45 +65,41 @@ public class MainWindow extends JFrame {
       background(255); 
       c = new ControlP5(this);
 
-      c.getTab("default").activateEvent(true).setLabel("Search for Stock").setId(1).setWidth(w / 3).setHeight(20);
-      c.addTab("portfolio").activateEvent(true).setLabel("View your Portfolio").setId(2).setWidth(w / 3).setHeight(20);
-      c.addTab("algorithm").activateEvent(true).setLabel("View your Automated Trading Settings").setWidth(w / 3).setHeight(20);
+
+  c.getTab("default").setLabel("Search").setWidth(600 / 5).setHeight(40).setId(1).activateEvent(true);
+      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 5).setHeight(40).setId(2).activateEvent(true);
+      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 5).setHeight(40).setId(3).activateEvent(true);
+      c.addTab("tab4").setLabel("History -- Temporary").setWidth(600 / 5).setHeight(40).setId(11).activateEvent(true);
+     c.addTab("tab5").setLabel("Sentiments").setWidth(600 / 5).setHeight(40).setId(13).activateEvent(true);
       
-       c.addTab("sentiments").setLabel("Sentiment Analyzer").setWidth(600 / 3).setHeight(40).setId(4).activateEvent(true);
+
       
-      // Set up the sliders for the sentiment analyzer
-      
-      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5);
+  
       
       
       
       //Set up the sliders
       
-     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("AvgVolume").setPosition(100,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("MarketCapitalization").setPosition(100,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("EPS").setPosition(100,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("DividendsandYield").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("P2SR").setPosition(100,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("FP2E").setPosition(100,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("AEPS").setPosition(100,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("QEPS").setPosition(100,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("MeanReccomendations").setPosition(100,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("PEGRatio").setPosition(100,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
-      c.addSlider("currentValue").setPosition(100,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5);
+     c.addSlider("currentValue").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("closeLastDay").setPosition(100,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("openLastDay").setPosition(100,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("BID").setPosition(100,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("TargetEstimate").setPosition(100,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Beta").setPosition(100,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("DaysRange").setPosition(100,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Week52Volume").setPosition(100,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("Volume").setPosition(100,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("AvgVolume").setPosition(100,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("MarketCapitalization").setPosition(100,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("EPS").setPosition(100,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("DividendsandYield").setPosition(100,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("P2SR").setPosition(100,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("FP2E").setPosition(100,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("AEPS").setPosition(100,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("QEPS").setPosition(100,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("MeanReccomendations").setPosition(100,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("PEGRatio").setPosition(100,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("currentValue").setPosition(100,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
       
       // Set up the slider ranges
       
@@ -113,26 +109,26 @@ public class MainWindow extends JFrame {
       
       //set up the slider wieghts
       
-      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
-      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("algorithm");
+      c.addSlider("WcurrentValue").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WcloseLastDay").setPosition(400,170).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WopenLastDay").setPosition(400,200).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WBID").setPosition(400,230).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WTargetEstimate").setPosition(400,260).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WBeta").setPosition(400,290).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WDaysRange").setPosition(400,320).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WWeek52Volume").setPosition(400,350).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WVolume").setPosition(400,380).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+     c.addSlider("WAvgVolume").setPosition(400,410).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WMarketCapitalization").setPosition(400,440).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WEPS").setPosition(400,470).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WDividendsandYield").setPosition(400,140).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WP2SR").setPosition(400,500).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WFP2E").setPosition(400,600).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WAEPS").setPosition(400,630).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WQEPS").setPosition(400,660).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WMeanReccomendations").setPosition(400,690).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WPEGRatio").setPosition(400,720).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
+      c.addSlider("WcurrentValue").setPosition(400,750).setSize(20,100).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab3");
       
       history = new ArrayList<String>();
       money = 0.0;
@@ -148,10 +144,7 @@ public class MainWindow extends JFrame {
       background(255);
       c = new ControlP5(this);
 
-      c.getTab("default").setLabel("Search").setWidth(600 / 4).setHeight(40).setId(1).activateEvent(true);
-      c.addTab("tab2").setLabel("Portfolio").setWidth(600 / 4).setHeight(40).setId(2).activateEvent(true);
-      c.addTab("tab3").setLabel("Algorithm").setWidth(600 / 4).setHeight(40).setId(3).activateEvent(true);
-      c.addTab("tab4").setLabel("History -- Temporary").setWidth(600 / 4).setHeight(40).setId(11).activateEvent(true);
+    
 
       // Setup of the PORTFOLIO tab
 
@@ -414,6 +407,18 @@ public class MainWindow extends JFrame {
 
       case 5:
         updateStock(stock);
+        break;
+        
+      case 13:
+          // Set up the sliders for the sentiment analyzer
+          tabState = 5;
+      
+      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
         break;
 
       case 6:
