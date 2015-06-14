@@ -75,7 +75,13 @@ public class MainWindow extends JFrame {
 
       
   
-      
+        
+      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
+      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
+      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
+      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
+      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
+      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5").setID(13);
       
       
       //Set up the sliders
@@ -368,6 +374,10 @@ public class MainWindow extends JFrame {
           amount.setText("");
           updatePortfolio();
           updateMoney();
+        } else if (tabState == 5){
+          
+          
+          
         }
       }
     }
@@ -412,13 +422,7 @@ public class MainWindow extends JFrame {
       case 13:
           // Set up the sliders for the sentiment analyzer
           tabState = 5;
-      
-      c.addSlider("Emotion 1").setPosition(200,140).setSize(100, 20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
-      c.addSlider("Emotion 2").setPosition(200,200).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
-      c.addSlider("Emotion 3").setPosition(200,250).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
-      c.addSlider("Emotion 4").setPosition(200,300).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
-      c.addSlider("Emotion 6").setPosition(200,350).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
-      c.addSlider("Emotion 7").setPosition(200,400).setSize(100,20).setRange(0,255).setNumberOfTickMarks(5).moveTo("tab5");
+    
         break;
 
       case 6:
