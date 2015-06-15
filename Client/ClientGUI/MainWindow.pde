@@ -150,7 +150,7 @@ public class MainWindow extends JFrame {
      search2 = c.addTextfield("SPMT1").setLabel("").setPosition(135, 335).setWidth(100).moveTo("tab3").setFocus(true);
      c.addButton("SPMB1").setLabel("Set SPM").setPosition(260, 335).setSize(50, 20).setId(72).moveTo("tab3");
       
-      c.addTextlabel("SPM2").setText("Shares per Minute: ").setLabel("").setPosition(65, 335).setColor(0).moveTo("tab5");
+      c.addTextlabel("SPM2").setText("Shares per Minute777: ").setLabel("").setPosition(350, 250).setColor(0).moveTo("tab5");
      search2 = c.addTextfield("SPM2").setLabel("").setPosition(135, 335).setWidth(100).moveTo("tab5").setFocus(true);
      c.addButton("SPMB2").setLabel("Set SPM").setPosition(260, 335).setSize(50, 20).setId(73).moveTo("tab5");
    
