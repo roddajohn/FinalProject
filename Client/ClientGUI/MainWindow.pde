@@ -108,12 +108,12 @@ public class MainWindow extends JFrame {
       c.addButton("ResetButton1").setId(64).setPosition(25, 55).setSize(50, 20).moveTo("tab3").setLabel("Reset");
       c.addButton("ResetButton2").setId(65).setPosition(25, 55).setSize(50, 20).moveTo("tab5").setLabel("Reset");
       
-      c.addButton("ST1").setId(66).setPosition(410, 330).setSize(75, 20).moveTo("tab3").setLabel("Start Algorithm");
-      c.addButton("ST2").setId(67).setPosition(410, 330).setSize(75, 20).moveTo("tab5").setLabel("Start Algorithm");
+      c.addButton("ST1").setId(66).setPosition(410, 335).setSize(75, 20).moveTo("tab3").setLabel("Start Algorithm");
+      c.addButton("ST2").setId(67).setPosition(410, 335).setSize(75, 20).moveTo("tab5").setLabel("Start Algorithm");
       
       
-      c.addButton("STOP1").setId(68).setPosition(500, 330).setSize(75, 20).moveTo("tab3").setLabel("Stop Algorithm");
-      c.addButton("STOP2").setId(69).setPosition(500, 330).setSize(75, 20).moveTo("tab5").setLabel("Stop Algorithm");
+      c.addButton("STOP1").setId(68).setPosition(500, 335).setSize(75, 20).moveTo("tab3").setLabel("Stop Algorithm");
+      c.addButton("STOP2").setId(69).setPosition(500, 335).setSize(75, 20).moveTo("tab5").setLabel("Stop Algorithm");
       
          Emotion1 = "Default Emotion 1";
           Emotion2 = "Default Emotion 2";
@@ -146,7 +146,7 @@ public class MainWindow extends JFrame {
      c.addButton("searchButton3").setLabel("Search").setPosition(260, 55).setSize(50, 20).setId(71).moveTo("tab5");
      
      
-       c.addTextlabel("SPM1").setText("Shares Per Minute: ").setLabel("").setPosition(65, 335).setColor(0).moveTo("tab3");
+       c.addTextlabel("SPM1").setText("Shares Per Minute: ").setLabel("").setPosition(45, 340).setColor(0).moveTo("tab3");
      search2 = c.addTextfield("SPMT1").setLabel("").setPosition(135, 335).setWidth(100).moveTo("tab3").setFocus(true);
      c.addButton("SPMB1").setLabel("Set SPM").setPosition(260, 335).setSize(50, 20).setId(72).moveTo("tab3");
       
