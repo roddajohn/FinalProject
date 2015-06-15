@@ -92,18 +92,56 @@ public class MainWindow extends JFrame {
       c.addTab("tab4").setLabel("History -- Temporary").setWidth(600 / 5).setHeight(40).setId(11).activateEvent(true);
      c.addTab("tab5").setLabel("Twitter Algorithm").setWidth(600 / 5).setHeight(40).setId(13).activateEvent(true);
 
-   
-      c.addSlider("Emotion 1").setPosition(50,100).setSize(100, 20).setRange(0,255).moveTo("tab5").setId(14);
-      c.addSlider("Emotion 2").setPosition(50,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(15);
-      c.addSlider("Emotion 3").setPosition(50,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(16);
-      c.addSlider("Emotion 4").setPosition(50, 250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(17);
-      c.addSlider("Emotion 5").setPosition(50, 300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(18);
+   c.addSlider("BcurrentValue").setPosition(25,100).setSize(100,20).setRange(0,255).moveTo("tab3").setId(20);
+     c.addSlider("BcloseLastDay").setPosition(25,150).setSize(100,20).setRange(0,255).moveTo("tab3").setId(21);
+     c.addSlider("openLastDay").setPosition(25,200).setSize(100,20).setRange(0,255).moveTo("tab3").setId(22);
+     c.addSlider("BID").setPosition(25,250).setSize(100,20).setRange(0,255).moveTo("tab3").setId(23);
+     c.addSlider("TargetEstimate").setPosition(25,300).setSize(100,20).setRange(0,255).moveTo("tab3").setId(24);
+     
+     c.addSlider("Beta").setPosition(175,100).setSize(100,20).setRange(0,255).moveTo("tab3").setId(25);
+     c.addSlider("DaysRange").setPosition(175,150).setSize(100,20).setRange(0,255).moveTo("tab3").setId(26);
+     c.addSlider("Week52Volume").setPosition(175,200).setSize(100,20).setRange(0,255).moveTo("tab3").setId(27);
+     c.addSlider("Volume").setPosition(175,250).setSize(100,20).setRange(0,255).moveTo("tab3").setId(28);
+     c.addSlider("AvgVolume").setPosition(175,300).setSize(100,20).setRange(0,255).moveTo("tab3").setId(29);
+     
+      c.addSlider("WcurrentValue").setPosition(325,100).setSize(100,20).setRange(0,255).moveTo("tab3").setId(39);
+     c.addSlider("WcloseLastDay").setPosition(325,150).setSize(100,20).setRange(0,255).moveTo("tab3").setId(40);
+     c.addSlider("WopenLastDay").setPosition(325,200).setSize(100,20).setRange(0,255).moveTo("tab3").setId(41);
+     c.addSlider("WBID").setPosition(325,250).setSize(100,20).setRange(0,255).moveTo("tab3").setId(42);
+     c.addSlider("WTargetEstimate").setPosition(325,300).setSize(100,20).setRange(0,255).moveTo("tab3").setId(43);
+     
+     c.addSlider("WBeta").setPosition(475,100).setSize(100,20).setRange(0,255).moveTo("tab3").setId(44);
+     c.addSlider("WDaysRange").setPosition(475,150).setSize(100,20).setRange(0,255).moveTo("tab3").setId(45);
+     c.addSlider("WWeek52Volume").setPosition(475,200).setSize(100,20).setRange(0,255).moveTo("tab3").setId(46);
+     c.addSlider("WVolume").setPosition(475,250).setSize(100,20).setRange(0,255).moveTo("tab3").setId(47);
+     c.addSlider("WAvgVolume").setPosition(475,300).setSize(100,20).setRange(0,255).moveTo("tab3").setId(48);
+     
+     
+      c.addSlider("Emotion 1").setPosition(25,100).setSize(100, 20).setRange(0,255).moveTo("tab5").setId(14);
+      c.addSlider("Emotion 2").setPosition(25,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(15);
+      c.addSlider("Emotion 3").setPosition(25,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(16);
+      c.addSlider("Emotion 4").setPosition(25, 250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(17);
+      c.addSlider("Emotion 5").setPosition(25, 300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(18);
       
-      c.addSlider("Emotion 6").setPosition(200,100).setSize(100,20).setRange(0,255).moveTo("tab5").setId(59);
-      c.addSlider("Emotion 7").setPosition(200,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(60);
-      c.addSlider("Emotion 8").setPosition(200,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(61);
-      c.addSlider("Emotion 9").setPosition(200,250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(62);
-      c.addSlider("Emotion 10").setPosition(200,300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(63);
+      c.addSlider("Emotion 6").setPosition(175,100).setSize(100,20).setRange(0,255).moveTo("tab5").setId(59);
+      c.addSlider("Emotion 7").setPosition(175,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(60);
+      c.addSlider("Emotion 8").setPosition(175,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(61);
+      c.addSlider("Emotion 9").setPosition(175,250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(62);
+      c.addSlider("Emotion 10").setPosition(175,300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(63);
+      
+      c.addSlider("Wieght Emotion 1").setPosition(325,100).setSize(100, 20).setRange(0,255).moveTo("tab5").setId(74);
+      c.addSlider("Wieght Emotion 2").setPosition(325,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(75);
+      c.addSlider("Wieght Emotion 3").setPosition(325,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(76);
+      c.addSlider("Wieght Emotion 4").setPosition(325, 250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(77);
+      c.addSlider("Wieght Emotion 5").setPosition(325, 300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(78);
+      
+      
+      c.addSlider("Wieght Emotion 6").setPosition(475,100).setSize(100, 20).setRange(0,255).moveTo("tab5").setId(79);
+      c.addSlider("Wieght Emotion 7").setPosition(475,150).setSize(100,20).setRange(0,255).moveTo("tab5").setId(80);
+      c.addSlider("Wieght Emotion 8").setPosition(475,200).setSize(100,20).setRange(0,255).moveTo("tab5").setId(81);
+      c.addSlider("Wieght Emotion 9").setPosition(475, 250).setSize(100,20).setRange(0,255).moveTo("tab5").setId(82);
+      c.addSlider("Wieght Emotion 10").setPosition(475, 300).setSize(100,20).setRange(0,255).moveTo("tab5").setId(83);
+      
       
       c.addButton("ResetButton1").setId(64).setPosition(25, 55).setSize(50, 20).moveTo("tab3").setLabel("Reset");
       c.addButton("ResetButton2").setId(65).setPosition(25, 55).setSize(50, 20).moveTo("tab5").setLabel("Reset");
@@ -125,17 +163,55 @@ public class MainWindow extends JFrame {
           Emotion8 = "Default Emotion 8";
           Emotion9 = "Default Emotion 9";
           Emotion10 = "Default Emotion 10";
+          
       
-      c.addTextlabel("E1").setText(Emotion1).setLabel("").setPosition(50, 90).setColor(0).moveTo("tab5");
-      c.addTextlabel("E2").setText(Emotion2).setLabel("").setPosition(50, 140).setColor(0).moveTo("tab5");
-      c.addTextlabel("E3").setText(Emotion3).setLabel("").setPosition(50, 190).setColor(0).moveTo("tab5");
-      c.addTextlabel("E4").setText(Emotion4).setLabel("").setPosition(50, 240).setColor(0).moveTo("tab5");
-      c.addTextlabel("E5").setText(Emotion5).setLabel("").setPosition(50, 290).setColor(0).moveTo("tab5");
-      c.addTextlabel("E6").setText(Emotion6).setLabel("").setPosition(200, 90).setColor(0).moveTo("tab5");
-      c.addTextlabel("E7").setText(Emotion7).setLabel("").setPosition(200, 140).setColor(0).moveTo("tab5");
-      c.addTextlabel("E8").setText(Emotion8).setLabel("").setPosition(200, 190).setColor(0).moveTo("tab5");
-      c.addTextlabel("E9").setText(Emotion9).setLabel("").setPosition(200, 240).setColor(0).moveTo("tab5");
-      c.addTextlabel("E10").setText(Emotion10).setLabel("").setPosition(200, 290).setColor(0).moveTo("tab5");
+      c.addTextlabel("E1").setText(Emotion1).setLabel("").setPosition(25, 90).setColor(0).moveTo("tab5");
+      c.addTextlabel("E2").setText(Emotion2).setLabel("").setPosition(25, 140).setColor(0).moveTo("tab5");
+      c.addTextlabel("E3").setText(Emotion3).setLabel("").setPosition(25, 190).setColor(0).moveTo("tab5");
+      c.addTextlabel("E4").setText(Emotion4).setLabel("").setPosition(25, 240).setColor(0).moveTo("tab5");
+      c.addTextlabel("E5").setText(Emotion5).setLabel("").setPosition(25, 290).setColor(0).moveTo("tab5");
+      c.addTextlabel("E6").setText(Emotion6).setLabel("").setPosition(175, 90).setColor(0).moveTo("tab5");
+      c.addTextlabel("E7").setText(Emotion7).setLabel("").setPosition(175, 140).setColor(0).moveTo("tab5");
+      c.addTextlabel("E8").setText(Emotion8).setLabel("").setPosition(175, 190).setColor(0).moveTo("tab5");
+      c.addTextlabel("E9").setText(Emotion9).setLabel("").setPosition(175, 240).setColor(0).moveTo("tab5");
+      c.addTextlabel("E10").setText(Emotion10).setLabel("").setPosition(175, 290).setColor(0).moveTo("tab5");
+      
+      
+      c.addTextlabel("WE1").setText("Wieght of" + Emotion1).setLabel("").setPosition(325, 90).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE2").setText("Wieght of" + Emotion2).setLabel("").setPosition(325, 140).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE3").setText("Wieght of" + Emotion3).setLabel("").setPosition(325, 190).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE4").setText("Wieght of" + Emotion4).setLabel("").setPosition(325, 240).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE5").setText("Wieght of" + Emotion5).setLabel("").setPosition(325, 290).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE6").setText("Wieght of" + Emotion6).setLabel("").setPosition(475, 90).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE7").setText("Wieght of" + Emotion7).setLabel("").setPosition(475, 140).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE8").setText("Wieght of" + Emotion8).setLabel("").setPosition(475, 190).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE9").setText("Wieght of" + Emotion9).setLabel("").setPosition(475, 240).setColor(0).moveTo("tab5");
+      c.addTextlabel("WE10").setText("Wieght of" + Emotion10).setLabel("").setPosition(470, 290).setColor(0).moveTo("tab5");
+      
+      
+      
+      c.addTextlabel("M1").setText("Current Value").setLabel("").setPosition(25, 90).setColor(0).moveTo("tab3");
+      c.addTextlabel("M2").setText("Close Last Day").setLabel("").setPosition(25, 140).setColor(0).moveTo("tab3");
+      c.addTextlabel("M3").setText("Open Last Day").setLabel("").setPosition(25, 190).setColor(0).moveTo("tab3");
+      c.addTextlabel("M4").setText("BID").setLabel("").setPosition(25, 240).setColor(0).moveTo("tab3");
+      c.addTextlabel("M5").setText("Target Estimate").setLabel("").setPosition(25, 290).setColor(0).moveTo("tab3");
+      c.addTextlabel("M6").setText("Beta").setLabel("").setPosition(175, 90).setColor(0).moveTo("tab3");
+      c.addTextlabel("M7").setText("Days Range").setLabel("").setPosition(175, 140).setColor(0).moveTo("tab3");
+      c.addTextlabel("M8").setText("Week 52 Volume").setLabel("").setPosition(175, 190).setColor(0).moveTo("tab3");
+      c.addTextlabel("M9").setText("Volume").setLabel("").setPosition(175, 240).setColor(0).moveTo("tab3");
+      c.addTextlabel("M10").setText("Average Volume").setLabel("").setPosition(175, 290).setColor(0).moveTo("tab3");
+      
+      
+      c.addTextlabel("MWE1").setText("Wieght of CV").setLabel("").setPosition(325, 90).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE2").setText("Wieght of CLD").setLabel("").setPosition(325, 140).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE3").setText("Wieght of OLD").setLabel("").setPosition(325, 190).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE4").setText("Wieght of BID").setLabel("").setPosition(325, 240).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE5").setText("Wieght of TE").setLabel("").setPosition(325, 290).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE6").setText("Wieght of Beta").setLabel("").setPosition(475, 90).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE7").setText("Wieght of DR" ).setLabel("").setPosition(475, 140).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE8").setText("Wieght of 52WV" ).setLabel("").setPosition(475, 190).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE9").setText("Wieght of Volume" ).setLabel("").setPosition(475, 240).setColor(0).moveTo("tab3");
+      c.addTextlabel("MWE10").setText("Wieght of AV").setLabel("").setPosition(470, 290).setColor(0).moveTo("tab3");
       
        c.addTextlabel("search2").setText("Search: ").setLabel("").setPosition(85, 60).setColor(0).moveTo("tab3");
      search2 = c.addTextfield("searchField2").setLabel("").setPosition(135, 55).setWidth(100).moveTo("tab3").setFocus(true);
@@ -150,7 +226,7 @@ public class MainWindow extends JFrame {
      search2 = c.addTextfield("SPMT1").setLabel("").setPosition(135, 335).setWidth(100).moveTo("tab3").setFocus(true);
      c.addButton("SPMB1").setLabel("Set SPM").setPosition(260, 335).setSize(50, 20).setId(72).moveTo("tab3");
       
-      c.addTextlabel("SPM2").setText("Shares per Minute777: ").setLabel("").setPosition(350, 250).setColor(0).moveTo("tab5");
+      c.addTextlabel("SharesPerMinute").setText("Shares per Minute: ").setLabel("").setPosition(45, 340).setColor(0).moveTo("tab5");
      search2 = c.addTextfield("SPM2").setLabel("").setPosition(135, 335).setWidth(100).moveTo("tab5").setFocus(true);
      c.addButton("SPMB2").setLabel("Set SPM").setPosition(260, 335).setSize(50, 20).setId(73).moveTo("tab5");
    
