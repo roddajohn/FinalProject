@@ -535,18 +535,23 @@ public class MainWindow extends JFrame {
         if (!stock.equals("") && !amount.getText().equals("")) {
           try {
             int shares = Integer.parseInt(amount.getText());
-            if (client.sendMessage("buy " + stock + " " + shares)) {
-              double d = 0.0;
-              updateStock(stock);
-              for (Stock s : stocks) {
-                if (s.getSymbol().equals(stock)) {
-                  d = s.getCurrentValue();
+            System.out.println("Shares: " + shares);
+            if (!(shares < 1)) {
+              if (client.sendMessage("buy " + stock + " " + shares)) {
+                double d = 0.0;
+                updateStock(stock);
+                for (Stock s : stocks) {
+                  if (s.getSymbol().equals(stock)) {
+                    d = s.getCurrentValue();
+                  }
                 }
+                message("Success -- you just bought " + shares + " shares of " + stock + " at " + d + " a share!");
+                history.add("Bought " + shares + " shares of " + stock);
+              } else {
+                errorMessage("You don't have enough money, the purchase did not go through");
               }
-              message("Success -- you just bought " + shares + " shares of " + stock + " at " + d + " a share!");
-              history.add("Bought " + shares + " shares of " + stock);
             } else {
-              errorMessage("You don't have enough money, the purchase did not go through");
+              errorMessage("Please enter a non-zero positive number");
             }
           }
           catch (NumberFormatException a) {
@@ -569,18 +574,22 @@ public class MainWindow extends JFrame {
         if (!stock.equals("") && !sellAmount.getText().equals("")) {
           try {
             int shares = Integer.parseInt(sellAmount.getText());
-            if (client.sendMessage("sell " + stock + " " + shares)) {
-              double d = 0.0;
-              updateStock(stock);
-              for (Stock s : stocks) {
-                if (s.getSymbol().equals(stock)) {
-                  d = s.getCurrentValue();
+            if (!(shares < 1)) {
+              if (client.sendMessage("sell " + stock + " " + shares)) {
+                double d = 0.0;
+                updateStock(stock);
+                for (Stock s : stocks) {
+                  if (s.getSymbol().equals(stock)) {
+                    d = s.getCurrentValue();
+                  }
                 }
+                message("Success -- you just sold " + shares + " shares of " + stock + " at " + d + " a share!");
+                history.add("Sold " + shares + " shares of " + stock);
+              } else {
+                errorMessage("You don't have that many shares");
               }
-              message("Success -- you just sold " + shares + " shares of " + stock + " at " + d + " a share!");
-              history.add("Sold " + shares + " shares of " + stock);
             } else {
-              errorMessage("You don't have that many shares");
+              errorMessage("Please enter a non-zero positive number");
             }
           }
           catch (NumberFormatException a) {
