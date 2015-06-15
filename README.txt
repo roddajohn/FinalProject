@@ -2,11 +2,14 @@ For the release due 6/1/15 -- please see the branch entitled 6/1/15
 
 Hi Mr. K
 
-We said we wanted a trading algorithm and sentiment analyzer for this final version last Monday, and we do have a fully functioning algorithm code and a nice looking GUI, but unfortunately we did not have time to connect the GUI to algorithm, so we did not include it in the master version. If you want to look at our nice looking, but non functional GUI interfaces for the algorithm and sentiment analyzer, check out the branch "ben4". -- Benjamin
+We said we wanted a trading algorithm and sentiment analyzer for this final version last Monday, and we do have a fully functioning algorithm code and a nice looking GUI, but unfortunately we did not have time to connect the GUI to algorithm, so we did not include it in the master version. If you want to look at our nice looking, but non functional GUI interfaces for the algorithm and sentiment analyzer, check out the branch "ben4".
+Also, the functional Trading Algorithm is the branch "ben," if you would like to look at the code.
+Sorry that we could not get those extras working on time, despite many days of work.
+-- Benjamin
 
 Hi Mr. K
 
-Just a note about how to access the finalproject, the final version is in the branch final!  Just more generally, my responsibilities were to do all networking code, and write the search, portfolio, and history tab of the GUI.  Ben's was to make the Trading Algorithm and the Sentiment Analyzer (both of which are not included in the final project due to them not being implemented).  Also, when you test it, if you run the Driver in the Server folder, that will start the server, and then you can run the ClientGUI in processing.  It is setup to be a local server (it could be remote, but this makes testing simpler).  -- Rodda
+Just a note about how to access the finalproject, the final version is in the branch final!  Just more generally, my responsibilities were to do all networking code, and write the search, portfolio, and history tab of the GUI.  Ben's was to make the Trading Algorithm and the Sentiment Analyzer (both of which are not included in the final project due to them not being completely functional).  Also, when you test it, if you run the Driver in the Server folder, that will start the server, and then you can run the ClientGUI in processing.  It is setup to be a local server (it could be remote, but this makes testing simpler).  -- Rodda
 
 
 Before Wednesday May 27th
