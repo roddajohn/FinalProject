@@ -14,7 +14,7 @@ public class ChartAPI {
   private final int BUFFER_SIZE = 4096;
 
   public String getChartAddress(int chartNumber, String symbol) {
-    return "C:\\Users\\Rodda\\My Documents\\coding\\FinalProject\\Client\\ClientGUI\\data\\" + symbol + ("" + chartNumber) + ".jpg";
+    return dataPath("") + "/" + symbol + ("" + chartNumber) + ".jpg";
   }
 
   public boolean loadCharts(String symbol) {
@@ -23,9 +23,9 @@ public class ChartAPI {
       String url1 = BASEURL + symbol + TIMESPAN + ONEYEAR + TYPEOFGRAPH + SIZEOFGRAPH;
       String url2 = BASEURL + symbol + TIMESPAN + SIXMONTHS + TYPEOFGRAPH + SIZEOFGRAPH;
       String url3 = BASEURL + symbol + TIMESPAN + FIVEDAYS + TYPEOFGRAPH + SIZEOFGRAPH;
-      String save1 = "\\data\\" + symbol + "1.jpg";
-      String save2 = "\\data\\" + symbol + "2.jpg";
-      String save3 = "\\data\\" + symbol + "3.jpg";
+      String save1 = dataPath("") + "/" + symbol + "1.jpg";
+      String save2 = dataPath("") + "/" + symbol + "2.jpg";
+      String save3 = dataPath("") + "/" + symbol + "3.jpg";
       saveImage(url1, save1);  
       saveImage(url2, save2);  
       saveImage(url3, save3);
