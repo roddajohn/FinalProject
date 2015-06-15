@@ -14,11 +14,13 @@ public class ChartAPI {
   private final int BUFFER_SIZE = 4096;
 
   public String getChartAddress(int chartNumber, String symbol) {
+    symbol = symbol.toUpperCase();
     return dataPath("") + "/" + symbol + ("" + chartNumber) + ".jpg";
   }
 
   public boolean loadCharts(String symbol) {
     try {
+      symbol = symbol.toUpperCase();
       println("URL = " + BASEURL + symbol + TIMESPAN + ONEYEAR + TYPEOFGRAPH + SIZEOFGRAPH);
       String url1 = BASEURL + symbol + TIMESPAN + ONEYEAR + TYPEOFGRAPH + SIZEOFGRAPH;
       String url2 = BASEURL + symbol + TIMESPAN + SIXMONTHS + TYPEOFGRAPH + SIZEOFGRAPH;
@@ -37,9 +39,10 @@ public class ChartAPI {
   }
 
   public boolean refreshCharts(String symbol) {
+    symbol = symbol.toUpperCase();
     return loadCharts(symbol);
   }  
-  
+
   public void saveImage(String imageUrl, String destinationFile) throws IOException {
     URL url = new URL(imageUrl);
     InputStream is = url.openStream();
@@ -48,7 +51,7 @@ public class ChartAPI {
     byte[] b = new byte[4096];
     int length;
 
-    while ((length = is.read(b)) != -1) {
+    while ( (length = is.read (b)) != -1) {
       os.write(b, 0, length);
     }
 

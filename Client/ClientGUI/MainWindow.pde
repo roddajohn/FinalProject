@@ -178,17 +178,17 @@ public class MainWindow extends JFrame {
       c.addTextlabel("symbol").setText("Symbol: ").setPosition(15, 120).moveTo("default").setColor(0);
       c.addTextlabel("currentValue").setText("Current Price: ").setPosition(15, 145).moveTo("default").setColor(0);
       c.addTextlabel("closeLastDay").setText("Close Last Day: ").setPosition(15, 170).moveTo("default").setColor(0);
-      c.addTextlabel("open").setText("Open: ").setPosition(15, 195).moveTo("default").setColor(0);
+      c.addTextlabel("open").setText("Open Last Day: ").setPosition(15, 195).moveTo("default").setColor(0);
       c.addTextlabel("volume").setText("Volume: ").setPosition(15, 220).moveTo("default").setColor(0);
-      c.addTextlabel("dividendsandyield").setText("Dividends and Yield: ").setPosition(15, 245).moveTo("default").setColor(0);
+      //c.addTextlabel("dividendsandyield").setText("Dividends and Yield: ").setPosition(15, 245).moveTo("default").setColor(0);
 
       name = c.addTextlabel("nameT").setText("").setPosition(45, 95).moveTo("default").setColor(0);
       symbol = c.addTextlabel("symbolT").setText("").setPosition(55, 120).moveTo("default").setColor(0);
       current = c.addTextlabel("currentT").setText("").setPosition(75, 145).moveTo("default").setColor(0);
       close = c.addTextlabel("closeT").setText("").setPosition(85, 170).moveTo("default").setColor(0);
-      open = c.addTextlabel("openT").setText("").setPosition(45, 195).moveTo("default").setColor(0);
+      open = c.addTextlabel("openT").setText("").setPosition(85, 195).moveTo("default").setColor(0);
       volume = c.addTextlabel("volumeT").setText("").setPosition(60, 220).moveTo("default").setColor(0);
-      dividends = c.addTextlabel("dividendsT").setText("").setPosition(100, 245).moveTo("default").setColor(0);
+      //dividends = c.addTextlabel("dividendsT").setText("").setPosition(100, 245).moveTo("default").setColor(0);
 
       chart1 = c.addToggle("chart1").setPosition(181, 81).setWidth(139).setHeight(20).setId(6).moveTo("default");
       chart1.setBroadcast(false);
@@ -226,7 +226,7 @@ public class MainWindow extends JFrame {
               close.setText("" + s.getCloseLastDay());
               open.setText("" + s.getOpenLastDay());
               volume.setText("" + s.getVolume());
-              dividends.setText("" + s.getDividendsandYield());
+              //dividends.setText("" + s.getDividendsandYield());
             }
           }
           if (chartsReady) {
@@ -318,7 +318,7 @@ public class MainWindow extends JFrame {
                 close.setText("");
                 open.setText("");
                 volume.setText("");
-                dividends.setText("");
+                //dividends.setText("");
               }
               if (continueRunning) {
                 s.setSymbol(parsed[1]);
@@ -326,7 +326,7 @@ public class MainWindow extends JFrame {
                 s.setCloseLastDay(Double.parseDouble(parsed[3]));
                 s.setOpenLastDay(Double.parseDouble(parsed[4]));
                 s.setVolume(Double.parseDouble(parsed[5]));
-                s.setDividendsandYield(Double.parseDouble(parsed[6]));
+                //s.setDividendsandYield(Double.parseDouble(parsed[6]));
                 found = true;
               }
             }
@@ -350,7 +350,7 @@ public class MainWindow extends JFrame {
               close.setText("");
               open.setText("");
               volume.setText("");
-              dividends.setText("");
+              //dividends.setText("");
             }
             if (continueRunning) {
               stocks.add(new Stock(parsed[0], parsed[1], Double.parseDouble(parsed[2]), Double.parseDouble(parsed[3]), Double.parseDouble(parsed[4]), Double.parseDouble(parsed[5]), Double.parseDouble(parsed[6])));
@@ -380,7 +380,7 @@ public class MainWindow extends JFrame {
             if (search.getText().equals("")) {
               errorMessage("You cannot leave the search field blank");
             } else {
-              stock = search.getText();
+              stock = search.getText().toUpperCase();
               updateStock(stock);
             }
           }
@@ -464,7 +464,7 @@ public class MainWindow extends JFrame {
           if (search.getText().equals("")) {
             errorMessage("You cannot leave the search field blank");
           } else {
-            stock = search.getText();
+            stock = search.getText().toUpperCase();
             updateStock(stock);
           }
         }
