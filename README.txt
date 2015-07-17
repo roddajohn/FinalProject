@@ -1,4 +1,4 @@
-The Final version is in branch final.
+The final version is in this branch.
 
 
 Before Wednesday May 27th
