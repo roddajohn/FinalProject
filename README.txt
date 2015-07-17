@@ -1,7 +1,7 @@
 For the release due 6/1/15 -- please see the branch entitled 6/1/15
 
 
-Firstly, go to the branch entitled "final.". When you test it, if you run the Driver in the Server folder, that will start the server, and then you can run the ClientGUI in processing.  It is setup to be a local server (it could be remote, but this makes testing simpler). If you want to look at our nice looking, but non functional GUI interfaces for the algorithm and sentiment analyzer, check out the branch "ben4".Also, the functional Trading Algorithm is the branch "ben," if you would like to look at the code.
+Firstly, go to the branch entitled "final." When you test it, if you run the Driver in the Server folder, that will start the server, and then you can run the ClientGUI in processing.  It is setup to be a local server (it could be remote, but this makes testing simpler). If you want to look at our nice looking, but non functional GUI interfaces for the algorithm and sentiment analyzer, check out the branch "ben4".Also, the functional Trading Algorithm is the branch "ben," if you would like to look at the code.
 
 Before Wednesday May 27th
 
